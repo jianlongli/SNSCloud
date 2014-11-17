@@ -43,6 +43,7 @@ class Security extends Plugin
 				'circle' => array('index', 'mkdir'),
 				'invoices' => array('index', 'profile'),
 				'sysmanage' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex'),
+				'system' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex'),
 				'work' => array('index','assign','receive','mywork','addwork'),
 				'circlemanage' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
 				'topic' => array('index')
