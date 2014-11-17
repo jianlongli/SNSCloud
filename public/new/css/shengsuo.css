@@ -1,0 +1,111 @@
+.docTInfo{width:1200px; height:auto; margin-left:auto; margin-right:auto; }
+  .docTleft{background:url(../images/logo3.png) no-repeat top left; width:120px; height:70px;  float:left; margin-top:2px;}
+  .docTright{width:300px; height:50px; float:right; margin-top:20px;}
+  .docTright ul li{list-style:none; float:left; padding-left:20px;  }
+  .docTright ul li a{color:#616161; font-weight:bold;}
+   .docTright ul li a:hover{background:url(../images/hove.png) no-repeat 2px 20px; width:60px; color:#b92c2c; padding-bottom:20px; text-align:center;}
+  /*中间内容部分style*/
+  .docMLeft{ width:950px; border:1px solid #dfdfdf; float:left; height:517px; background:#FFF;}
+  .docMRight{width:195px;float:left;margin-left:45px;}
+  .dclear {clear: both;height:1px;margin-top:-1px;overflow:hidden;}
+  .diocMLImg{text-align:right; padding-right:10px; padding-top:5px;}
+  .diocMLCont{ width:920px; margin:15px; }
+  .diocMLCont h2{text-align:center; padding:5px;}
+  .diocMLCont h4,.diocMLCont h5{ padding:8px 0px;}
+  .diocMLCont p{font-size:14px;}
+  .docMRight1 a{color:#FFF;  padding:0px 35px 0px 45px;}
+  .docMRight1 {background:url(../images/dh_baktopbut1.png);line-height:41px; padding-left:20px;font-size:17px;color:#FFF; width:174px;cursor:pointer; color:#FFF; font-weight:bold; }
+   .docMRight2{background:url(../images/dh_bak1.png) no-repeat top left; height:490px; width:194px; margin-top:-10px;}
+  .docMRight22{ margin-top:10px; height:10px;}
+ 	/*收缩菜单style*/
+	.vf {
+		float:left;
+		width:14px;
+		height:14px;
+		overflow:hidden;
+		background:url(../images/xx4.png) no-repeat;
+		display:inline-block;
+		margin-top:-5px;
+		margin-bottom:-5px;
+	}
+	.v01f {	background-position:0 0;}
+	.v02f {background-position:0 -16px;}
+	.vtitlef {height:35px;color:#616161; line-height:33px; margin-left:16px;padding-left:20px;font-size:15px;color:#4d4d4d; width:143px;cursor:pointer; color:#FFF; font-weight:bold; color: #3e5706;
+			text-shadow: 1px 1px 1px rgba(255,255,255, .2);
+			
+			/*background: url(../img/active.png) repeat-x;*/
+			background: #faebed;
+			background: -moz-linear-gradient(top,  #faebed 0%, #f3ccd1 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#faebed), color-stop(100%,#f3ccd1));
+			background: -webkit-linear-gradient(top,  #faebed 0%,#f3ccd1 100%);
+			background: -o-linear-gradient(top,  #faebed 0%,#f3ccd1 100%);
+			background: -ms-linear-gradient(top,  #faebed 0%,#f3ccd1 100%);
+			background: linear-gradient(top,  #faebed 0%,#f3ccd1 100%);	 }
+	.vtitlef em {margin:12px 10px 0 0px;}
+	.vtitlef:hover{ display: block;
+			position: relative;
+			min-width: 110px;
+			padding: 0 10px 0 20px;
+			height: 32px;
+		
+			color:#000;
+			font: bold 12px/32px Arial, sans-serif;
+			text-decoration: none;
+			text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+		
+			background: #ededed;
+			background: -moz-linear-gradient(top,  #ededed 0%, #c8c6c6 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#c8c6c6));
+			background: -webkit-linear-gradient(top,  #ededed 0%,#c8c6c6 100%);
+			background: -o-linear-gradient(top,  #ededed 0%,#c8c6c6 100%);
+			background: -ms-linear-gradient(top,  #ededed 0%,#c8c6c6 100%);
+			background: linear-gradient(top,  #ededed 0%,#c8c6c6 100%);
+		
+			-webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+			-moz-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+			box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, .1), 0px 1px 0px 0px rgba(0,0,0, .1);
+	}
+	.vconmiddef > li > a span {
+	color: #fdfdfd;
+	text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+	background: #d20c2d;
+}
+	.vocnf{ margin-left:16px;}
+	
+	.vocntopf{  width:164px; height:13px; }
+	.vconmiddef{ width:155px; height:auto; margin-left:5px; }
+	.vconmiddef ul{width:120px; margin-left:26px; list-style:none;}
+	.vconmiddef li{color:#FFF; font-size:13px; }
+	.vconmiddef li a {height:25px;line-height:25px; display:block; font-size:13px;color:#616161;}
+	.vconmiddef li.select a, .vconmidde li a:hover {color:#b92c2c;text-decoration:none;}
+	
+	.vocnbottomf{background:url(../images/dh_cenbakbottom.png) no-repeat top left; width:164px; height:13px; text-align:center; pading-top:2px;}
+	
+	.docMRight22 em {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: 14px;
+	color: #a6a6a6;
+	font: normal 10px/32px Arial, sans-serif;
+}
+.vconmiddef> li:hover > a span,
+
+.vconmiddef > li > a span {
+	color: #fdfdfd;
+	text-shadow: 0px 1px 0px rgba(0,0,0, .35);
+	background: #d20c2d;
+}
+.fh{ 
+
+　　float:left; 
+
+　　min-height:200px;　　/*当div内容不超过200px高度时，div高度为200px*/ 
+
+　　height:auto;　　/*当div内容超过200px高度时，div自动增高*/ 
+
+　　min-width:100px;　　/*当div内容不超过100px宽度时，div宽度为100px*/ 
+
+　　width:auto;　　/*当div内容超过100px宽度时，div自动增宽*/ 
+    background: #c8c6c6;
+　　} 

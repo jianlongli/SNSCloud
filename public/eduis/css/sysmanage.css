@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+/*Public css*/
+.dn {display:none;}
+
+  /*.............................................................系统管理style......................................................................*/ 
+  /*..个人信息...*/
+ .GIRightXT{float:left; }
+ .GIRightXT .XTglInfo{width:1140px;  margin-left:5px;}
+ .XTglInfo .XTglInfoul ul{width:990px; height:34px;margin-bottom:0px;}
+ .XTglInfo .XTglInfoul ul li{ background:url(../images/Gd2.png) no-repeat top left; width:113px; height:34px;float:left; list-style:none;}
+ .XTglInfo .XTglInfoul ul li a{color:#666; display:block; height:34px; line-height:34px;}
+ .XTglInfo .XTglInfoul ul li .dijxt{color:#FFF; background:url(../images/gt2.png) no-repeat top left;}
+ .XTglInfodiv{border:1px solid #e6e6e6;width:980px; border-radius:0px 0px 0px 3px; height:auto;}
+ .XTglInfodiv ul{ margin-top:10px; list-style:none;}
+ .XTglInfodiv ul li{margin:8px 0px;}
+ .XTglInfodiv .xtulleft{float:left; width:100px; text-align:right;}
+ .XTglInfodiv .xtulright{float:left; margin-left:5px; }
+ .XTglInfodiv .xtulcent{ margin:15px 0px 15px 155px; }
+ .XTglInfodiv .xtulright span{ color:#F00; margin-left:5px;}
+ .XTglInfodiv .xtulright .zhaop{border:1px solid #dfd9dd; height:128px; width:128px; margin-bottom:5px;}
+ .XTglInfodiv .xtulright .xtrtex{width:100px; height:22px;}
+ .XTglInfodiv .xtulright .xtrpsw{width:200px; height:22px;}
+ .XTglInfodiv .xtulright .xtrsele{width:80px; height:26px; outline:none;}
+  /*..圈子邀请...*/
+ .XTglInfodiv .yqul{margin-left:20px;}
+ .XTglInfodiv .yqul .xtrpsw{width:200px; height:22px;margin-left:20px;}
+ .XTOk{background:#ce1c1c;  color:#fff; border-radius:3px; width:70px; height:25px; color:#fff; font-weight:bold; border:none; cursor:pointer; font-size:14px; margin-left:20px; margin-bottom:10px; _margin-bottom:0px;  *margin-bottom:0px;}
+ .XTUpOk{background:#880000;  color:#fff; border-radius:3px; width:70px; height:25px; color:#fff; font-weight:bold; border:none; cursor:pointer; font-size:14px; margin-left:20px; margin-bottom:10px;_margin-bottom:0px; *margin-bottom:0px;}
+ .XTOffOk{background:#ce1c1c;  color:#fff; border-radius:3px; width:70px; height:25px; color:#fff; font-weight:bold; border:none; cursor:pointer; font-size:14px; margin-left:20px; margin-bottom:10px;_margin-bottom:0px; *margin-bottom:0px;}
+ .XTglInfodiv .yqul table{border:1px solid #cd1e34; border-collapse:collapse;  width:940px;}
+ .XTglInfodiv .yqul table td{border:1px solid #cd1e34; padding:0px 3px; text-align:center; color:#616161; height:30px;}
+ .XTglInfodiv .yqul table .yqtr{background:url(../images/3754.jpg) repeat-x;}
+ .XTglInfodiv .yqul table .check{width:15px; height:15px;}
+ 
+  /*..用户管理...*/
+ .XTglInfodiv .yhulleft{ float:left; margin-left:20px;}
+ .XTglInfodiv .yhulleft .yhbut1{background:url(../images/xz.jpg) no-repeat top left; border:none; font-weight:bold; color:#333; padding-left:25px; height:25px; cursor:pointer; font-size:15px; width:100px;}
+  .XTglInfodiv .yhulleft .yhbut2{background:url(../images/tr.jpg) no-repeat top left; border:none; font-weight:bold; color:#333; padding-left:25px; height:25px; cursor:pointer; font-size:15px; width:100px;}
+   .XTglInfodiv .yhulleft .yhbut3{background:url(../images/tc.jpg) no-repeat top left; border:none; font-weight:bold; color:#333; padding-left:25px; height:25px; cursor:pointer; font-size:15px; width:100px;}
+ .XTglInfodiv .yhulright{margin-left:200px;  _margin-left:100px;  *margin-left:100px;float:left;}
+ .XTglInfodiv .yhulleft .xtrpsw{width:150px; height:22px;}
+ .XTglInfodiv .yhulright .xtrpsw{width:200px; height:22px;}
+ .XTglInfodiv .xtulright .xtRleft{float:left;}
+ .XTglInfodiv .xtulright .xtRcent{float:left; margin-left:100px; *margin-left:40px;  }
+ .XTglInfodiv .xtulright .xtRrighg{float:left; margin-left:200px;}
+ .XTglInfodiv .xtulright .xtRrighg input{border:none; background:none; font-size:15px; cursor:pointer; color:#40BBD0;}
+ .XTglInfodiv .xtulright .xtRrighg .inpubolr{ font-weight:bold;}
+ /*..单位管理...*/
+ .XTglInfodiv .yqul .xtrsele{width:100px; height:26px; outline:none;}
+ .XTglInfodiv .yqul .xtrpsw1{width:200px; height:22px;}
+
+.UpOkbut{  background:#880000; cursor:pointer;  color:#fff; border-radius:3px; width:110px; height:33px;border:none; font-size:16px; margin-left:20px; margin-bottom:10px;}
+.OffOkbut{ background:#ce1c1c;cursor:pointer;  color:#fff; border-radius:3px; width:110px; height:33px;border:none; font-size:16px; margin-left:20px; margin-bottom:10px;}
+
+ 
