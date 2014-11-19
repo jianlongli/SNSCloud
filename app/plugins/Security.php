@@ -65,6 +65,7 @@ class Security extends Plugin
 				'contact' => array('index', 'send'),
 				'ceditor' => array('index', 'edit', 'fileGet', 'fileSave'),
 				'notice' => array('index', 'send','received'),
+				'video' => array('index'),
 				'topic' => array('index')
 			);
 			foreach ($publicResources as $resource => $actions) {
