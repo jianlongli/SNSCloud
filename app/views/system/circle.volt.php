@@ -1,17 +1,17 @@
 <ul>
 	<li>
     	<div class="yhulleft">
-        	<span>分类：<input type="text" class="xtrpsw" /></span>
-            <span>状态：<input type="text" class="xtrpsw" /></span>
         </div>
-    	<div class="yhulright">
-         <input type="text" class="xtrpsw"/>
-         <input type="button"  value="查询" class="XTOk" onMouseOver="this.className='XTUpOk'" onMouseOut="this.className='XTOffOk'" />
+    	<div class="yhulleft">
+        <input type="text" class="xtrpsw" id="keyWord" value="<?php echo $page->key; ?>" />
+		<input type="hidden" class="inputText" id="keyWordH" value="<?php echo $page->key; ?>" />
+		<input type="button"  value="查询" class="XTOk Search"/>
         </div>
         <div class="clear"></div>
     </li>
     <li>
     	<div class="yqul">
+    	<?php if($page){ ?>
             <table>
                 <tr class="yqtr">
                     <td>圈子名称</td>
@@ -22,63 +22,41 @@
                     <td>审批状态</td>
                     <td>操作</td>
                 </tr>
+                <?php foreach($page->items as $item){ ?>
                 <tr>
-                    <td style="text-align:left"><a href="#" onclick=" $.alertUrl('系统管理-圈子审批-圈子审核页面.html', '　圈子审核', 700, 550);">圈子a</a></td>
-                    <td>刘美</td>
-                    <td>语文</td>
-                    <td>和平街一中</td>
-                    <td>2014.10.12</td>
-                    <td>未审核</td>
+                    <td style="text-align:left"><a href="#" onclick="" class="circleDetil" data-id="<?php echo $item->circleid;?>" date-name="<?php echo $item->circlename;?>"><?php echo $item->circlename;?></a></td>
+                    <td><?php echo $item->username;?></td>
+                    <td>---</td>
+                    <td><?php echo $item->companyname;?></td>
+                    <td><?php echo date('Y-m-d',$item->time);?></td>
+                    <?php $status = $item->status == 0 ? '待审核' : ($item->status == 1 ? '通过' : '禁止');?>
+                    <td><?php echo $status;?></td>
                     <td>
-                    	 <input type="button" value="审核"  class="deletBut1" onclick=" $.alertUrl('系统管理-圈子审批-圈子审核页面.html', '　圈子审核', 700, 550);"/>
-                         <input type="button" value="删除"  class="deletBut1"/>
+                    	<a href="#" data-type="review" data-id="<?php echo $item->id;?>" class="circleManage" >审核</a>
+                    	<a href="#" data-type="del" data-id="<?php echo $item->id;?>" class="circleManage" >删除</a>
                     </td>
                 </tr>
-                <tr>
-                    <td style="text-align:left"><a href="#" onclick=" $.alertUrl('系统管理-圈子审批-圈子审核页面.html', '　圈子审核', 700, 550);">圈子b</a></td>
-                    <td>刘美</td>
-                    <td>语文</td>
-                    <td>和平街一中</td>
-                    <td>2014.10.12</td>
-                    <td>未通过</td>
-                    <td>
-                    	 <input type="button" value="审核"  class="deletBut1" onclick=" $.alertUrl('系统管理-圈子审批-圈子审核页面.html', '　圈子审核', 700, 550);"/>
-                         <input type="button" value="删除"  class="deletBut1"/>
-                    </td>
-                </tr>
-                <tr>
-                     <td style="text-align:left"><a href="#" onclick=" $.alertUrl('系统管理-圈子审批-圈子审核页面.html', '　圈子审核', 700, 550);">圈子c</a></td>
-                    <td>刘美</td>
-                    <td>语文</td>
-                    <td>和平街一中</td>
-                    <td>2014.10.12</td>
-                    <td>未审核</td>
-                    <td>
-                    	 <input type="button" value="审核"  class="deletBut1" onclick=" $.alertUrl('系统管理-圈子审批-圈子审核页面.html', '　圈子审核', 700, 550);"/>
-                         <input type="button" value="删除"  class="deletBut1"/>
-                    </td>
-                </tr>
+                <?php } ?>
             </table>
+            <?php } ?>
         </div>
     </li>
     <li>
     	<div class="xtulleft"><input type="button"  value="新建" class="XTOk" onMouseOver="this.className='XTUpOk'" onMouseOut="this.className='XTOffOk'"  onclick=" $.alertUrl('系统管理-圈子审批-新建圈子.html', '　新建圈子', 700, 600);"/></div>
+    	<?php if($page->total_pages > 1) { ?>
         <div class="xtulright">
-        	<div class="xtRleft">总共有&nbsp;<span>3456</span>条</div>
-            <div class="xtRcent">每条记录数&nbsp;<select class="xtrsele"><option></option></select></div>
+        	<div class="xtRleft">总共有&nbsp;<span><?php echo $page->total_items;?></span>条</div>
+            <div class="xtRcent"><div style=" width:70px; height:2px; "></div></div>
             <div class="xtRrighg">
-                <span><a href="#" class="inpubolr">首页</a></span>
-                <span><a href="#" class="inpubolr">上一页</a></span>
-                <span><a href="#">1</a></span>
-                <span><a href="#">2</a></span>
-                <span><a href="#">3</a></span>
-                <span><a href="#">4</a></span>
-                <span><a href="#">5</a></span>
-                <span><a href="#" class="inpubolr">下一页</a></span>
-                <span><a href="#" class="inpubolr">尾页</a></span>
+		        <span><a href="#" class="inpubolr syspage" data="/system/circle" >首页</a></span>
+		        <span><a href="#" class="inpubolr syspage" data="/system/circle/?page=<?php echo $page->before;?>" >上一页</a></span>
+		        <?php echo $page->lists; ?>
+		        <span><a href="#" class="inpubolr syspage" data="/system/circle/?page=<?php echo $page->next;?>">下一页</a></span>
+		        <span><a href="#" class="inpubolr syspage" data="/system/circle/?page=<?php echo $page->last;?>">尾页</a></span>
             </div>
              <div class="clear"></div>
         </div>
+        <?php } ?>
         <div class="clear"></div>
     </li>
 </ul>

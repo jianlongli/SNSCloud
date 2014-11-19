@@ -22,4 +22,22 @@ $.system ={
 				}
 			});
 		},
+		
+		/*ajax Request data*/
+		_ajxRequest : function ( _url , _param , _callback ){
+			if (_url && _callback && _param) {
+				$.ajax({
+					url : _url,
+					data : _param,
+					dataType : 'json',
+					type : "POST",
+					success : function ( _data ){
+						_callback(_data);
+					},
+					error : function (_data ) {
+						_callback(_data);
+					}
+				});
+			}
+		},	
 }

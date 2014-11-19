@@ -75,7 +75,6 @@
 <script>
 	$(function(){
 		$('#personalForm').live('submit',function(){
-			//alert('fdsafds');return false;
 			$.common._ajax('personalForm',systemCallback);
 			return false;
 		});

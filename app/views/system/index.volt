@@ -115,19 +115,140 @@
 <script type="text/javascript">
 	
 	$(function(){
+		$('.init_loading').fadeOut(450).addClass('pop_fadeout');
 		$.system._init('personal');
 		$(".tagMenu li a ").live('click',function(){
 			$(".tagMenu li a").removeClass("dijxt");
 			$(this).addClass("dijxt");
 			$.system._init($(this).attr('data'));
+			$('.init_loading').fadeOut(450).addClass('pop_fadeout');
 		});	
 		
+		/*Page*/
+		$(".syspage").live('click',function (){
+			_param = {};
+			_url = $(this).attr("data");
+			_key = $("#keyWord").val();
+			if(_key.length > 0 )
+				_param.key = _key;
+			$.system._getData( _url , $(".dijxt").attr("data") ,_param);
+		});
+		
+		/*search*/
+		$(".Search").live('click',function(){
+			var _key = $("#keyWord").val();
+			_param = {};
+			if(_key.length > 0 )
+				_param.key = _key;
+			
+			if($(".dijxt").attr("data") =='company'){	
+				_regional = $("#regionalOption").children('option:selected').val();	
+				if(_regional.length > 0 && _regional != 0)
+					_param.regional = _regional;
+			}
+			_url = '/system/'+$(".dijxt").attr("data");
+			$.system._getData( _url , $(".dijxt").attr("data") , _param );
+		});
+		
+		$("#selectPageSize").live('click' , function(){
+			_url = $(this).children('option:selected').attr("data"); 
+			$.system._getData( _url , $(".dijxt").attr("data") , {} );
+		});
+		
+		/*Delete member*/
+		$(".Delopration").live('click',function () {
+			$.system._ajxRequest( '/system/' + $(".dijxt").attr("data") + '/del' , { id: $(this).data('id')} , memberCallback);
+		});
+		
+		/*Choose delete*/
+		$("#chooseAll").live('click',function(){
+			if($(this).attr("checked") == 'checked'){
+				$('input[name^="chkItem"]').attr('checked','checked');
+			}else{
+				$('input[name^="chkItem"]').removeAttr('checked');
+			}
+		});
+	
+		$('input[name="chkItem[]"]').live('click',function(){
+			var _count = $('input[name="chkItem[]"]').size();
+			var _checked_count = $('input[name="chkItem[]"]:checked').size();
+			if (_checked_count != _count) {
+				$('#chooseAll').removeAttr('checked');
+			} else if (_checked_count == _count) {
+				$('#chooseAll').attr('checked','checked');
+			}
+		});
+	
+		$("#memberDelBtn").live('click',function(){
+			var _id = '';
+			$.each($('input[name="chkItem[]"]:checked'), function(i, n){
+				_id += $(this).val()+',';
+			});
+			$.system._ajxRequest( '/system/' + $(".dijxt").attr("data") + '/del' , { id: _id} , memberCallback);
+		});
+		
+		$(".memberManage").live('click',function () {
+			var _type = $(this).attr("data");
+			art.dialog.open('/sysmanage/member/add',{
+				id: 'memberAdd',
+				fixed : true,
+				title : '新增用户',
+				lock : true,
+				height : '460px',
+				width : '700px',
+			});
+		});
+	
+		/*Invite manage */
+		$(".inviteManage").live('click' , function(){
+			$.system._ajxRequest( '/system/invite/update' , { id: $(this).data('id') , type:$(this).data('type') }, inviteCallback);
+		});
+		
+		/*Circle manage*/
+		$(".circleManage").live('click',function(){
+			var _action = $(".dijxt").attr("data");
+			var _type = $(this).data("type");
+			var _id = $(this).data("id");
+			if( _type == 'del'){
+				$.system._ajxRequest( '/system/' + $(".dijxt").attr("data") + '/del' , { id: _id} , memberCallback);
+				$.sysmanage._delData(_action,_id,DelCallback);
+			}else{
+				art.dialog.open('/sysmanage/circle/update?id='+_id,{
+					id: 'circleReview',
+					fixed : true,
+					title : '圈子审核',
+					lock : true,
+					height : '460px',
+					width : '700px',
+				});
+				//$.sysmanage._updateData(_action,{id:_id},DelCallback);
+			}
+		});
 		
 	});
 		
 	function systemCallback( _data ){
 		$.system._init($('li a[class="dijxt"]').attr('data'));
 	}
+	
+	function inviteCallback( _data ){
+		if( _data.code ){
+			var _id = _data.data.id;
+			_content = _data.data.status ==1 ? '<a href="#" style="color:green;">已加入</a>' : '<a href="#" style="color:red;">已拒绝</a>';
+			$("#invite_" + _id).html(_content);
+		}else{
+			alert( _data.data );
+		}
+	}
+	function memberCallback( _data ){
+		//if( _data.code ){
+			$.system._init($(".dijxt").attr("data"));
+		//}else{
+		//	alert(_data.data);
+		//}
+	}
+	
+	
 </script>
 
 	
