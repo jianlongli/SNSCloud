@@ -203,9 +203,6 @@ class SystemController extends ControllerBase
 					$this->common->show_json('Please choose role !',false);
 				}
 		
-				if(empty($identity)){
-					$this->common->show_json('Please choose identity !',false);
-				}
 				if(!empty($password) || !empty($repassword) ){
 					if ($password != $repassword)
 						$this->common->show_json('The passwords entered are not the same. Please re-enter them',false );
@@ -242,6 +239,8 @@ class SystemController extends ControllerBase
 				}
 				$this->common->show_json('this is test data',false);
 			}
+			
+			/*Show user infomation */
 				
 			//Get roles lists
 			$roleResult = $this->rbac->get_role();
@@ -251,11 +250,13 @@ class SystemController extends ControllerBase
 				$roleLists[$key]['name'] = $val->name;
 			}
 			//Get user identity
+			/*
 			$identityResult = UserIdentity::find();
 			foreach($identityResult as $k => $v){
 				$identityLists[$k]['id'] = $v->id;
 				$identityLists[$k]['name'] = $v->name;
 			}
+			*/
 			$this->view->setVar("roleLists", $roleLists);
 			$this->view->setVar("identityLists", $identityLists);
 				

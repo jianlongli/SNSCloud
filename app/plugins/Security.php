@@ -46,6 +46,7 @@ class Security extends Plugin
 				'system' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex'),
 				'work' => array('index','assign','receive','mywork','addwork'),
 				'circlemanage' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
+				'info' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
 				'topic' => array('index')
 			);
 			

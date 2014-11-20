@@ -156,6 +156,12 @@ ol,ul{
 .circlemanage{
 	background:url(../images/wdq_btx22.png) no-repeat top left;
 }
+.introcircle{
+	background:url(../images/wdq_btx21.png) no-repeat top left;
+}
+.workmanage{
+	background:url(../images/wdq_btx1.png) no-repeat top left;
+}
 
 /*circlemanageDiv*/
 .circlemanageDiv .manage-left{

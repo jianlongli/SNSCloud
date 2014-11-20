@@ -144,10 +144,15 @@
 						</div><!-- .circleContiner-left end -->
 
 						<div class="circleContiner-right pull-right">
-							<a href="#" class="btnF sendNotice">发布通知</a>
-							<a href="#" id="zuoye" class="btnF work" data-id="<?php echo $circleId; ?>">布置作业</a>
-							<a href="javascript:;" id="discuss_begin_button" data-id="<?php echo $circleId;?>" class="btnF discuss">发起讨论</a>
-							<a class="btnF circlemanage"  href="/circlemanage?id=<?php echo $circleId;?>" id="circleManage">圈子管理</a>
+							<?php if($roleids == 1 || $iscirclemanager){?>
+								<a href="#" class="btnF sendNotice">发布通知</a>
+								<a href="#" id="zuoye" class="btnF work" data-id="<?php echo $circleId; ?>">布置作业</a>
+								<a href="javascript:;" id="discuss_begin_button" data-id="<?php echo $circleId;?>" class="btnF discuss">发起讨论</a>
+								<a class="btnF circlemanage"  href="/circlemanage?id=<?php echo $circleId;?>" id="circleManage">圈子管理</a>
+							<?php }else{ ?>
+								<a class="btnF introcircle"  href="/info?id=<?php echo $circleId;?>">了解圈子</a>
+								<a class="btnF workmanage"  href="/info?id=<?php echo $circleId;?>" >作业管理</a>
+							<?php } ?>
 
 							<h4>圈子动态<span><a href="javascript:;">更多>></a><span></h4>
 							<div class="dynamic">

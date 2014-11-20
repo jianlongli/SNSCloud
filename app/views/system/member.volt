@@ -1,8 +1,11 @@
 <?php if($option == 'add') { ?>
-
+	<?php echo $this->tag->stylesheetLink('./eduis/css/styletcs.css'); ?>
+	<?php echo $this->tag->javascriptInclude('./eduis/js/jquery.min.js'); ?>
+	<?php echo $this->tag->javascriptInclude('./static/js/lib/artDialog/jquery-artDialog.js?skin=default'); ?>
+	<?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/common.js'); ?>
 	<div class="YHgl">
   	<div id="message" style="display:none;"></div>
-    <form id='addMemberForm' action='/sysmanage/member/add' method="POST">
+    <form id='addMemberForm' action='/system/member/add' method="POST">
   	<ul>
     	<li>
         	<div class="xtulleft">用户名：</div>
@@ -46,16 +49,7 @@
             </div>
             <div class="clear"></div>
         </li>
-        <li>
-        	<div class="xtulleft">用户身份：</div>
-            <div class="xtulright">
-            	<?php foreach($identityLists as $kk => $vv){?>
-            	<span><input type="radio" name="identity" id="identify" value="<?php echo $vv[name];?>" /><?php echo $vv[name];?></span>
-    			<?php }?>
-                <span  class="spancolor">*</span>
-            </div>
-            <div class="clear"></div>   
-        </li>
+        
         <li>
         	<div class="xtulleft">真实姓名：</div>
             <div class="xtulright"><input type="text" class="xtrpsw" name="name" id="name" /> <span  class="spancolor">*&nbsp;不能超过20&nbsp;个字符</span></div>
@@ -84,6 +78,31 @@
     </ul>
     </form>
   </div>
+  <script>
+	$(function(){
+		$(".Okbutq1").live('click',function(){
+			art.dialog.close();
+		});
+		
+		$('#addMemberForm').bind('submit',function(){
+			$.common._ajax('addMemberForm',addMemberFormCallback);
+			//art.dialog.close();
+			return false;
+		});
+		
+	});
+	
+	function addMemberFormCallback( _data ){
+		console.log(_data);
+		if(!_data.code){
+			$.common._showMsg ('message', _data.data);
+		}else{
+			$.common._showMsg ('message', _data.data);
+			//art.dialog.close();
+		}
+	}
+	
+  </script>
   
 <?php }else{ ?>
 

@@ -189,7 +189,7 @@
 		
 		$(".memberManage").live('click',function () {
 			var _type = $(this).attr("data");
-			art.dialog.open('/sysmanage/member/add',{
+			art.dialog.open('/system/member/add',{
 				id: 'memberAdd',
 				fixed : true,
 				title : '新增用户',

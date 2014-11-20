@@ -3,21 +3,37 @@
 use Phalcon\Tag as Tag;
 
 class CircleController extends ControllerBase
-{	
+{
+	public $userid = '';
+	public $username = '';
+	public $roleids = '';
+	
 	public function initialize()
 	{
 		$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../config/config.ini');
 		$this->session->set('object_name', $config->object->object_name);
 
 		parent::initialize();
-		if (!$this->session->get('auth')) {
-			return $this->forward('session/index');
-		}
+
+                /*Loading public part*/
+                $authInfo = $this->session->get('auth');
+                if (!$authInfo) {
+                        return $this->forward('session/index');
+                }
+
+                $this -> userid = $authInfo['userid'];
+                $this -> username = $authInfo['username'];
+                $this -> roleids = $authInfo['roleids'];
+
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-                $circleList = Circle::find();
+		$sql = "SELECT Circle.name name FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+
+		$this->view->setVar('roleids',$authInfo['roleids']);
                 $this->view->setVar('circleList',$circleList);
+		
 	}
 
 	public function indexAction()
@@ -1622,6 +1638,8 @@ class CircleController extends ControllerBase
 			$info = Circle::findFirst('circleid=' . $Id);
 			Tag::setTitle($this->session->get('object_name').' | ' . $info->name);
 			$this->view->setVar('circleId', $Id);
+			$iscirclemanage = $info->userid == $this->userid ? true : false;
+			$this->view->setVar('iscirclemanager',$iscirclemanage);
 		}
 		$this->view->setTemplateAfter('topbar');
 	}
