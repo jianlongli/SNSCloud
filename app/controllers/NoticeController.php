@@ -31,9 +31,10 @@ class NoticeController extends ControllerBase
     	}
     	
     	$id = $this->request->get('id');
-    	if($id!=''){
-    	$id=5;//圈子ID
-    	}
+		$this->view->setVar('circle_id',$id);
+    	// if($id!=''){
+    	// $id=5;//圈子ID
+    	// }
         $user_id=$user['userid'];//发布通知人
     	$this->view->setVar('circle_id',$id);
     	Tag::setTitle($this->session->get('object_name').' | 通知');
@@ -59,29 +60,26 @@ class NoticeController extends ControllerBase
      */
     public function sendAction()
     {
-       $page =$this->request->get('page');
-       if($page==""){
-       	
-       	$page=1;
-       }
-       $user = $this->session->get('auth');
+       // $page =$this->request->get('page');
+       // if($page==""){
+       	// $page=1;
+       // }
+		$user = $this->session->get('auth');
     	if (!$user) {
     		return $this->forward('session/index');
     	}
-    	
-    	$id=5;//圈子ID
-    	
+    	// $id=5;//圈子ID
         $user_id=$user['userid'];//发布通知人
     	
     	$request = $this->request;
+		$circle_id = $request->getPost("circle_id");
+		$this->view->setVar('circle_id',$circle_id);
      	$notice_title = $request->getPost('notice_title');
-    	$circle_id = $request->getPost("circle_id");
     	$receive =$request->getPost("receive");
+		$receive=$receive=='N'?1:0;
     	$back = $request->getPost("back");
     	$content = $request->getPost("content");
-    	$this->view->setVar('circle_id',$id);
-    	
-
+		prin_r($_FILES);die;
     	if ($request->hasFiles() == true) {
     		foreach ($request->getUploadedFiles("notice_fujian") as $file){
 	
@@ -94,7 +92,6 @@ class NoticeController extends ControllerBase
     		$fujian="no file";
     		$fujianname="no file";
     	}
-
     	//插入到通知数据库中
     	    	 
     	$notice = new Notices();
@@ -138,7 +135,8 @@ class NoticeController extends ControllerBase
     		    	 return $this->forward("notice/index");
     		}else{
     			
-    			$receive_people = $request->getPost("receive_people");
+    			// $receive_people = $request->getPost("receive_people");
+				$receive_people = $request->getPost("hdreceiveid");
     			$arr=explode(",",$receive_people);
     			foreach($arr as $u){
 					$str =explode("*", $u);

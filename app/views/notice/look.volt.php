@@ -31,8 +31,8 @@
                    
                          <div class="cyInfo1">
                         	<table  id="alternatecolor">
-                        	<?php $v117703207271387726031iterated = false; ?><?php $v117703207271387726031iterator = $page->items; $v117703207271387726031incr = 0; $v117703207271387726031loop = new stdClass(); $v117703207271387726031loop->length = count($v117703207271387726031iterator); $v117703207271387726031loop->index = 1; $v117703207271387726031loop->index0 = 1; $v117703207271387726031loop->revindex = $v117703207271387726031loop->length; $v117703207271387726031loop->revindex0 = $v117703207271387726031loop->length - 1; ?><?php foreach ($v117703207271387726031iterator as $product) { ?><?php $v117703207271387726031loop->first = ($v117703207271387726031incr == 0); $v117703207271387726031loop->index = $v117703207271387726031incr + 1; $v117703207271387726031loop->index0 = $v117703207271387726031incr; $v117703207271387726031loop->revindex = $v117703207271387726031loop->length - $v117703207271387726031incr; $v117703207271387726031loop->revindex0 = $v117703207271387726031loop->length - ($v117703207271387726031incr + 1); $v117703207271387726031loop->last = ($v117703207271387726031incr == ($v117703207271387726031loop->length - 1)); ?><?php $v117703207271387726031iterated = true; ?>
-   									 <?php if ($v117703207271387726031loop->first) { ?>
+                        	<?php $v130959030762531552721iterated = false; ?><?php $v130959030762531552721iterator = $page->items; $v130959030762531552721incr = 0; $v130959030762531552721loop = new stdClass(); $v130959030762531552721loop->length = count($v130959030762531552721iterator); $v130959030762531552721loop->index = 1; $v130959030762531552721loop->index0 = 1; $v130959030762531552721loop->revindex = $v130959030762531552721loop->length; $v130959030762531552721loop->revindex0 = $v130959030762531552721loop->length - 1; ?><?php foreach ($v130959030762531552721iterator as $product) { ?><?php $v130959030762531552721loop->first = ($v130959030762531552721incr == 0); $v130959030762531552721loop->index = $v130959030762531552721incr + 1; $v130959030762531552721loop->index0 = $v130959030762531552721incr; $v130959030762531552721loop->revindex = $v130959030762531552721loop->length - $v130959030762531552721incr; $v130959030762531552721loop->revindex0 = $v130959030762531552721loop->length - ($v130959030762531552721incr + 1); $v130959030762531552721loop->last = ($v130959030762531552721incr == ($v130959030762531552721loop->length - 1)); ?><?php $v130959030762531552721iterated = true; ?>
+   									 <?php if ($v130959030762531552721loop->first) { ?>
                                         <tr class="tabletr">
                                             <td>接收人</td>
                                             <td>是否回执</td>
@@ -51,10 +51,10 @@
                                             <td><?php echo $product->back_content; ?></td>    
                                             <td><?php echo $product->back_fujianname; ?></td>    
                                         </tr>
-                                          <?php if ($v117703207271387726031loop->last) { ?>
+                                          <?php if ($v130959030762531552721loop->last) { ?>
                                        
                                             <?php } ?>
-								<?php $v117703207271387726031incr++; } if (!$v117703207271387726031iterated) { ?>
+								<?php $v130959030762531552721incr++; } if (!$v130959030762531552721iterated) { ?>
   											  No members are recorded
 								<?php } ?>
                                 

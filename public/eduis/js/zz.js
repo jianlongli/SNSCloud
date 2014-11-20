@@ -46,6 +46,11 @@ $(document).ready(function() {
 				$.common._showMsg('tishi','请填写失效日期');
 				return false;
 			}
+			var timeb=checkEndTime(created,endtime)
+			if(!timeb){
+				$.common._showMsg('tishi','失效日期不能早于开始日期 ');
+				return false;
+			}
 			
 			$.ajax({
 				url:'assign/?type=submit&title='+title+'&description='+description+"&created="+created+"&endtime="+endtime+"&receiveid="+receiveid+"&circleid="+circleid+"&workid="+workid,
@@ -61,7 +66,7 @@ $(document).ready(function() {
 					$("#created").val("");
 					$("#endtime").val("");
 					$("#receiveid").val("");
-					$("#circleid").val("");
+					//$("#circleid").val("");
 					$("#workid").val("");
 				},
 			});	
@@ -116,6 +121,13 @@ function worklist(page) {
 			});
 
 }
-
+function checkEndTime(startTime,endTime){  
+    var start=new Date(startTime.replace("-", "/").replace("-", "/"));  
+    var end=new Date(endTime.replace("-", "/").replace("-", "/"));  
+    if(end<start){  
+        return false;  
+    }  
+    return true;  
+}  
 	
 	

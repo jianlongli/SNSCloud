@@ -13,8 +13,8 @@
               </form>
                     <div class="Qxq">
                     	<table class="xztr">
-                    		<?php $v139292661297357608891iterated = false; ?><?php $v139292661297357608891iterator = $page->items; $v139292661297357608891incr = 0; $v139292661297357608891loop = new stdClass(); $v139292661297357608891loop->length = count($v139292661297357608891iterator); $v139292661297357608891loop->index = 1; $v139292661297357608891loop->index0 = 1; $v139292661297357608891loop->revindex = $v139292661297357608891loop->length; $v139292661297357608891loop->revindex0 = $v139292661297357608891loop->length - 1; ?><?php foreach ($v139292661297357608891iterator as $product) { ?><?php $v139292661297357608891loop->first = ($v139292661297357608891incr == 0); $v139292661297357608891loop->index = $v139292661297357608891incr + 1; $v139292661297357608891loop->index0 = $v139292661297357608891incr; $v139292661297357608891loop->revindex = $v139292661297357608891loop->length - $v139292661297357608891incr; $v139292661297357608891loop->revindex0 = $v139292661297357608891loop->length - ($v139292661297357608891incr + 1); $v139292661297357608891loop->last = ($v139292661297357608891incr == ($v139292661297357608891loop->length - 1)); ?><?php $v139292661297357608891iterated = true; ?>
-   									 <?php if ($v139292661297357608891loop->first) { ?>
+                    		<?php $v46104342432378311941iterated = false; ?><?php $v46104342432378311941iterator = $page->items; $v46104342432378311941incr = 0; $v46104342432378311941loop = new stdClass(); $v46104342432378311941loop->length = count($v46104342432378311941iterator); $v46104342432378311941loop->index = 1; $v46104342432378311941loop->index0 = 1; $v46104342432378311941loop->revindex = $v46104342432378311941loop->length; $v46104342432378311941loop->revindex0 = $v46104342432378311941loop->length - 1; ?><?php foreach ($v46104342432378311941iterator as $product) { ?><?php $v46104342432378311941loop->first = ($v46104342432378311941incr == 0); $v46104342432378311941loop->index = $v46104342432378311941incr + 1; $v46104342432378311941loop->index0 = $v46104342432378311941incr; $v46104342432378311941loop->revindex = $v46104342432378311941loop->length - $v46104342432378311941incr; $v46104342432378311941loop->revindex0 = $v46104342432378311941loop->length - ($v46104342432378311941incr + 1); $v46104342432378311941loop->last = ($v46104342432378311941incr == ($v46104342432378311941loop->length - 1)); ?><?php $v46104342432378311941iterated = true; ?>
+   									 <?php if ($v46104342432378311941loop->first) { ?>
                         	<tr class="trd">
                             	<td width="42"><input type="checkbox" onclick="check_all(this,'member_id[]')"/></td>
                                 <td width="210">姓名</td>
@@ -27,10 +27,10 @@
                                 <td><?php echo $product->getUsers()->name; ?><input type="hidden" name="member_name[]" value="<?php echo $product->getUsers()->name; ?>"/></td>
                                 <td>暂无</td>
                             </tr>
-                             <?php if ($v139292661297357608891loop->last) { ?>
+                             <?php if ($v46104342432378311941loop->last) { ?>
                                        
                                             <?php } ?>
-								<?php $v139292661297357608891incr++; } if (!$v139292661297357608891iterated) { ?>
+								<?php $v46104342432378311941incr++; } if (!$v46104342432378311941iterated) { ?>
   											  No members are recorded
 								<?php } ?>
 

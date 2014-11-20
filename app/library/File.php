@@ -1212,11 +1212,20 @@ class File extends Phalcon\Mvc\User\Component
 				$this->flash->error('<span style="color:#F00">'.(string) $message.'</span>');
 			}
 		}else{
-			if (is_dir($dir) || mkdir($dir, $mode))
-			return $CircleCloudfileManage->ccloudid;
-			if (!$this->mk_dir(dirname($dir), $mode))
-				return false;
-				mkdir($dir, $mode);
+			//if (is_dir($dir) || mkdir($dir, $mode))
+			//return $CircleCloudfileManage->ccloudid;
+			//if (!$this->mk_dir(dirname($dir), $mode))
+			//	return false;
+			//	mkdir($dir, $mode);
+
+			if(!is_dir($dir)){
+				if( ! mkdirs(dirname($dir))){
+					return false;
+				}
+				if( ! mkdir($dir,$mode)){
+					return false;
+				}
+			}
 			
 		}
 	

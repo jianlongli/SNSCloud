@@ -2,6 +2,7 @@
 <?php echo $this->tag->javascriptInclude('./eduis/js/jquery.min.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/common.js'); ?>
 <?php echo $this->tag->javascriptInclude("./circlestatic/js/lib/artDialog/jquery-artDialog.js?skin=default");?>
+<?php echo $this->tag->javascriptInclude('./eduis/js/alertInfo1.js'); ?>
 
 
 <script language="javascript">
@@ -39,6 +40,11 @@
   }
  }
  */
+ 
+ function loud_receive(url){
+	$("#receivetype_n").attr("checked",true);
+	$.alertUrl(url, '选择接收人', 610, 500);
+}
 </script>
 
 {{ form('notice/send', 'id': 'noticeForm','enctype':'multipart/form-data') }}	                
@@ -52,10 +58,17 @@
     <div class="Qx1">
         <div class="Qx11">接收人：</div>
         <div class="Qx12">
-        	<input type="radio" name="receive" checked value="0" />圈内所有人　
+        	<!--<input type="radio" name="receive" checked value="0" />圈内所有人　
             <input type="radio" name="receive" value="1"/>指定人　
              <input type="text" class="inputNam" name="receive_people" id="receive_people" value=""/>
-            <input type="button" value="选择接收人"  onclick="onClick('received/{{circle_id}}');" class="quanz" onMouseOver="this.className='Upquanz'" onMouseOut="this.className='Offquanz'"  />　
+            <input type="button" value="选择接收人"  onclick="onClick('received/{{circle_id}}');" class="quanz" onMouseOver="this.className='Upquanz'" onMouseOut="this.className='Offquanz'"  />　-->
+			
+			<label><input type="Radio" name="receivetype" id="receivetype_y" value="Y" checked/>圈内所有人</label>
+                                    	<label><input type="Radio" name="receivetype" id="receivetype_n"  value="N" />指定人</label>
+										<input type="text" class="inputNam" id="receiveid" disabled=disabled />　
+										<input name="hdreceiveid" id="hdreceiveid" type="hidden" value="" />
+										<input type="button" value="选择接收人" onclick="loud_receive('/work/receive/?circleid=<?php echo $circle_id?>');" class="quanz" onMouseOver="this.className='Upquanz'" onMouseOut="this.className='Offquanz'" />
+										
         </div>
         <div class="clear"></div>
     </div>

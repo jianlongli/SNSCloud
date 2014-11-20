@@ -1,6 +1,6 @@
 <?php echo $this->tag->stylesheetLink('./eduis/css/styletcs.css'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/jquery.min.js'); ?>
-<?php echo $this->tag->javascriptInclude('./circlestatic/js/alertInfo.js'); ?>
+<?php echo $this->tag->javascriptInclude('./eduis/js/alertInfo1.js'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/zz.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/common.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/lib/My97DatePicker/WdatePicker.js'); ?>
@@ -8,6 +8,8 @@
 <style>
 	body{width:850px;margin:0px;}
 	#tishi{width:250px;height: 40px; background-color:red;margin: 0px auto;display: none;font-size: larger;}
+	.alertcalss{background-color: #fff;}
+	
 </style>
                  <div class="Qx1">
 						<div id="tishi"></div>
@@ -82,7 +84,7 @@ function del(id,page){
 }
 function loud_receive(url){
 	$("#receivetype_n").attr("checked",true);
-	$.alertUrl(url, '选择接收人', 600, 500);
+	$.alertUrl(url, '选择接收人', 610, 500);
 }
 function redact(id){//编辑
 	var htitle=$("#"+id+"htitle").val();

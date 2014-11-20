@@ -139,10 +139,11 @@ class WorkController extends ControllerBase
 	
 	public function receiveAction(){
 			$circleId = $this->request->get('circleid');
+			$this->view->setVar( 'circleId', $circleId);
 			$type=$this->request->get('type');
 			if($type=='seach'){
 				$seach_text = $this->request->get('seach_text');
-				$phql = "SELECT CircleMember.member_id member_id,Users.username username,CircleMember.time time, CircleMember.status status FROM CircleMember LEFT JOIN Users ON CircleMember.member_id=Users.userid WHERE Users.username like '%".$seach_text."%'";
+				$phql = "SELECT CircleMember.member_id member_id,Users.username username,CircleMember.time time, CircleMember.status status FROM CircleMember LEFT JOIN Users ON CircleMember.member_id=Users.userid WHERE CircleMember.circle_id=".$circleId." and Users.username like '%".$seach_text."%'";
 				$member_data = $this->modelsManager->executeQuery ( $phql );
 				$title_html="<tr class='trd'><td width='42'><input type='checkbox' id='allcheck' onclick='allchak();'/></td><td width='210' >姓名</td><td>学校</td></tr>";
 				foreach($member_data as $val){
@@ -163,7 +164,7 @@ class WorkController extends ControllerBase
 	public function myworkAction(){
 		$user = $this->session->get('auth');
 		//$work_data= Work::find ('userid='.$user['userid'] );
-		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,WorkCommit.ccloudid iscommit,Circle.name cirlename ,Users.name as username FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid LEFT JOIN Circle ON Work.circleid =Circle.circleid LEFT JOIN Users ON WorkCommit.userid=Users.userid WHERE WorkCommit.userid=".$user['userid'];
+		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid,Circle.name cirlename ,Users.name as username FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid LEFT JOIN Circle ON Work.circleid =Circle.circleid LEFT JOIN Users ON WorkCommit.userid=Users.userid WHERE WorkCommit.userid=".$user['userid'];
 		$mywork_data =  $this->modelsManager->executeQuery ( $sqls );
 		//$mywork_data=$this->commoncircle->get_page($mywork_data,$page,'/work/mywork',$this->pageSize,'5','3');
 		$this->view->setVar( 'mywork_data', $mywork_data);
@@ -190,11 +191,12 @@ class WorkController extends ControllerBase
 			$WorkCommit->workid= $workid;
 			$WorkCommit->userid= $user['userid'];
 			$WorkCommit->save();
-			echo "<script>parent.$('.hialertcalss').remove();parent.$('.alertcalss').remove();</script>";
+			echo "<script>parent.$('.hialertcalss').remove();parent.$('.alertcalss').remove();parent.$('#sbwork".$commmit_data->commitid."').html('".$user['name']."的作业');parent.$('#sbwork_is".$commmit_data->commitid."').html('已经提交')</script>";
 			die;
 		}else{
 			$work = Work::findFirst ( 'workid=' . $workid );
 			$this->view->setVar( 'work', $work);
+			$this->view->setVar( 'type', $type);
 		}
 		
 	}

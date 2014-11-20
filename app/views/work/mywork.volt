@@ -24,15 +24,15 @@
 
             <?php foreach($mywork_data as $val){ ?>
         	<tr>
-            	<td style="text-align:left; padding-left:8px;"><a href="#" onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $val->workid; ?>', '　交作业', 730,450);"><? echo $val->name; ?></a></td>
+            	<td style="text-align:left; padding-left:8px;"><a href="#" onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $val->workid; ?>&type=look', '　交作业', 730,350);"><? echo $val->name; ?></a></td>
                 <td><?php echo date("Y-m-d H:i:s",$val->endtime); ?></td>
-                <td><?php if($val->iscommit!='') echo '已经提交'; else echo '未提交'; ?></td>
+                <td id="sbwork_is<?php echo $val->commitid; ?>"><?php if($val->iscommit!='') echo '已经提交'; else echo '未提交'; ?></td>
 				<?php if($val->iscommit!=""){?>
                 <td><a href="#"><?php echo $val->username; ?>的作业</a></td>
 				<?php }else if($val->endtime<time()){ ?> 
 				<td><a href="#">已过期</a></td>
 				<?php }else { ?>
-				<td><a href="#" onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $val->workid; ?>', '　交作业', 730,450);">交作业</a></td>
+				<td id="sbwork<?php echo $val->commitid; ?>"><a href="#" onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $val->workid; ?>', '　交作业', 730,450);">交作业</a></td>
 				<?php }?>
                 <td><? echo $val->cirlename; ?></td>
             </tr>

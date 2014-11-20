@@ -160,7 +160,9 @@
 
 						<div class="circleContiner-right pull-right">
 							<h3 id="workmanage">作业管理</h3>
+							
 							<div class="circleWork" style="display:none;">
+							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye'>更多>></a><span></h4>
 								<p>高三作业</p>	
 								<ul>
 									<li>新作业<span>交作业</span></li>
