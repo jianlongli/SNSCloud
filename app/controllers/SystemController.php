@@ -152,7 +152,9 @@ class SystemController extends ControllerBase
 		
 		$this->view->setVar('option' , $option);
 		if ($option == 'edit') {
-				
+			if ($request->isAjax() == true) {
+				$userid = $request->get('id');
+			}
 		} elseif ($option == 'del') {
 			if ($request->isAjax() == true) {
 		

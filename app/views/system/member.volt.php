@@ -102,8 +102,11 @@
 		}
 	}
 	
-  </script>
-  
+  </script>  
+
+<?php }elseif($option == 'edit') { ?>
+	xxxxxxxxxxxx
+	xxxxxxx
 <?php }else{ ?>
 
 <ul>
@@ -144,7 +147,7 @@
                     <td><?php if($item->status ==0){echo '正常';}else{echo '禁用';};?></td>
                     <td>2014.10.12</td>
                     <td>
-                    	<a href="#" data-id="<?php echo $item->userid;?>">编辑</a>
+                    	<a href="#" class="Editopration" data-id="<?php echo $item->userid;?>">编辑</a>
                     	<a href="#" class="Delopration" data-id="<?php echo $item->userid;?>">删除</a>
                     </td>
                 </tr>

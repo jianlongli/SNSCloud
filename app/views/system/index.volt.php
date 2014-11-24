@@ -160,6 +160,20 @@
 			$.system._ajxRequest( '/system/' + $(".dijxt").attr("data") + '/del' , { id: $(this).data('id')} , memberCallback);
 		});
 		
+		/*Edit member*/
+		$(".Editopration").live('click' , function(){
+		
+	               art.dialog.open('/system/member/edit?id=123',{
+                                id: 'memberAdd',
+                                fixed : true,
+                                title : '新增用户',
+                                lock : true,
+                                height : '460px',
+                                width : '700px',
+                        });	
+		
+		});
+		
 		/*Choose delete*/
 		$("#chooseAll").live('click',function(){
 			if($(this).attr("checked") == 'checked'){
