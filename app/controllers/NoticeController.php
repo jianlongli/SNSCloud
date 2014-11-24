@@ -79,11 +79,12 @@ class NoticeController extends ControllerBase
 		$receive=$receive=='N'?1:0;
     	$back = $request->getPost("back");
     	$content = $request->getPost("content");
-		prin_r($_FILES);die;
     	if ($request->hasFiles() == true) {
     		foreach ($request->getUploadedFiles("notice_fujian") as $file){
-	
-    		$fujian =$this->upfile->upload_files(UPLOAD_FILE,$file);
+	$pdir = DATA_BASIC_PATH.'/c_'.$circle_id.'/private/通知上传/';
+	$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), $pdir);
+    		$fujian =$pdir.$file->getName();
+    		// $fujian =$this->upfile->upload_files(UPLOAD_FILE,$file);
     		$fujianname=$file->getName();
     		
     		}
