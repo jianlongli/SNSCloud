@@ -89,7 +89,7 @@
         <div class="Qx11">通知附件：</div>
         <div class="Qx12">
            <input type="file" name="notice_fujian" value=""/>
-            <input type="button" value="添加"  class="xizbts"  onMouseOver="this.className='Upxizbts'" onMouseOut="this.className='Offxizbts'" />
+           <!-- <input type="button" value="添加"  class="xizbts"  onMouseOver="this.className='Upxizbts'" onMouseOut="this.className='Offxizbts'" />　-->
         </div>
         <div class="clear"></div>
     </div>
