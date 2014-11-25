@@ -49,7 +49,7 @@
 		G.list_type = thistype;
 		if (firstRun == undefined){
 			$.ajax({
-				url:'setting/set/list_type/'+thistype,
+				url:'/setting/set/list_type/'+thistype,
 				dataType:'json',		
 				success:function(data){
 					_initListType(thistype);
@@ -87,7 +87,7 @@
 		}
 		_f5(false,true);//使用本地列表
 		$.ajax({
-			url:'setting/set/list_sort_field,list_sort_order/'
+			url:'/setting/set/list_sort_field,list_sort_order/'
 				+G.sort_field+','+G.sort_order
 		});
 	};
@@ -126,7 +126,7 @@
 		$('.dropdown-menu-theme li').click(function(){//点击选中
 			var theme=$(this).attr("theme");
 			$.ajax({
-				url:'setting/set/theme/'+theme,
+				url:'/setting/set/theme/'+theme,
 				dataType:'json',
 				success: function(data) {
 					ui.setTheme(theme);
