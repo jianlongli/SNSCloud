@@ -6,6 +6,15 @@ class CircleController extends ControllerBase
 {	
 	public function initialize()
 	{
+		
+//		echo urldecode('http://sg1b-excel.officeapps.live.com/x/_layouts/xlviewerinternal.aspx?ui=zh-CN&rs=zh-CN&WOPISrc=http%3A%2F%2Fsg1b-15-view-wopi.wopi.live.net%3A808%2Foh%2Fwopi%2Ffiles%2F%40%2FwFileId%3FwFileId%3Dhttp%3A%2F%2F182.92.185.228%3A8198%2F%2Fcircle%2FfileProxy%3Fpath%3D%252Fhome%252Fguohuiwang%252Fsnscloud%252Ftrunk%252FSNSCloud%252Fdata%252Fc_52%252Fprivate%252F%25E6%2589%25B9%25E9%2587%258F%25E4%25B8%258A%25E4%25BC%25A0%25E4%25BF%25A1%25E6%2581%25AF%25E8%25A1%25A8-%25E6%259D%258E%25E6%2583%25B3.xls&access_token=1&access_token_ttl=0')
+//		;
+//		echo '<hr>';
+//		echo urldecode('http://sg1b-excel.officeapps.live.com/x/_layouts/xlviewerinternal.aspx?ui=zh-CN&rs=zh-CN&WOPISrc=http%3A%2F%2Fsg1b-15-view-wopi.wopi.live.net%3A808%2Foh%2Fwopi%2Ffiles%2F%40%2FwFileId%3FwFileId%3Dhttp%253A%252F%252Fdemo.kalcaddle.com%252Fdata%252FUser%252Fguest%252Fhome%252F%252FLinux%25E6%259C%258D%25E5%258A%25A1%25E4%25BB%258B%25E7%25BB%258D.xls&access_token=1&access_token_ttl=0');
+//		echo '<HR>';
+//		echo urldecode('http%3A%2F%2Fdemo.kalcaddle.com%2Fdata%2FUser%2Fguest%2Fhome%2F%2FLinux%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D.xls')
+//		;
+//		die;
 		$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../config/config.ini');
 		$this->session->set('object_name', $config->object->object_name);
 
