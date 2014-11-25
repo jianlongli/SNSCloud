@@ -152,15 +152,107 @@ class SystemController extends ControllerBase
 		
 		$this->view->setVar('option' , $option);
 		if ($option == 'edit') {
+
+			//Process edit
 			if ($request->isAjax() == true) {
-				$userid = $request->get('id');
+			      	
+				$passwordFlag = false;
+
+                $userid = $request->getPost('userid');	
+                $password = $request->getPost('password');
+                $repassword = $request->getPost('repassword');
+                $email = $request->getPost('email');
+                $role_id = $request->getPost('role_id');
+                $sex = $request->getPost('sex');
+                $name = $request->getPost('name');
+                $cityid = $request->getPost('company');
+				
+				if(empty($userid)){
+                     $this->common->show_json('illgle request',false);
+				}
+
+                if(empty($role_id)){
+                    $this->common->show_json('Please choose role !',false);
+                }
+
+				
+                if(!empty($password) || !empty($repassword) ){
+                	if ($password != $repassword)
+                    	$this->common->show_json('The passwords entered are not the same. Please re-enter them',false );
+				    $passwordFlag = true;	
+                }
+				
+				$userDetail = Users::findFirst("userid='$userid'");
+
+				if ($userDetail != false) {
+					foreach ($userDetail->getUserRole() as $userRole) {
+						$role_id_old = $userRole->getRole()->id;
+					}
+				}
+				
+				$UserModel = new Users();
+				$UserModel = $userDetail;
+
+				$UserModel->email = isset($email) ? $email : '';
+				$UserModel->sex = $sex;
+				$UserModel->name = $name;
+
+
+				if($passwordFlag)
+					$UserModel->password = $password;
+
+				if ($UserModel->update() == false) {
+					foreach ($UserModel->getMessages() as $message) {
+						$this->common->show_json($message, false);
+					}
+				}
+				
+				/*Update user role*/
+				if($role_id_old != $role_id){
+					$this->update_user_role($userid,$role_id);
+				}
+
+				$this->common->show_json('Successful');
+				
 			}
+			
+			//Show user information for edit
+			$userid = $request->get('id');
+		    $userDetail = Users::findFirst("userid='$userid'");
+            if ($userDetail != false) {
+            	foreach ($userDetail->getUserRole() as $userRole) {
+                	$userDetail->roleid = $userRole->getRole()->id;
+                }
+            }else{
+				exit;
+			}	
+			
+            //Get roles lists
+            $roleResult = $this->rbac->get_role();
+			$roleStr = '';
+            foreach($roleResult as $key => $val){
+				$isChecked = $userDetail->roleid == $val->id ? "checked='checked'" : '';
+				$roleStr .='<input type="radio" name="role_id" id="role_id" value="'.$val->id.'"'.$isChecked.'/>'.$val->name;
+            }
+			$userDetail->userrole = $roleStr;
+			$this->view->setVar("userDetail", $userDetail);	
+
 		} elseif ($option == 'del') {
 			if ($request->isAjax() == true) {
 		
 				$ids = $request->getPost('id');
 		
 				if($ids == ''){
+					$password = $request->getPost('password');
+                                        $repassword = $request->getPost('repassword');
+                                        $email = $request->getPost('email');
+                                        $phone = $request->getPost('phone');
+                                        $birthday = $request->getPost('birthday');
+                                        $sex = $request->getPost('sex');
+                                        $provinceid = $request->getPost('provinceid');
+                                        $cityid = $request->getPost('cityid');
+                                        $county = $request->getPost('county');
+
 					$this->common->show_json('Illegal request !',false);
 				}
 		
@@ -289,10 +381,37 @@ class SystemController extends ControllerBase
 	}
 	
 	public function companyAction($option = ''){
+		
 		$request = $this->request;
+		$this->view->setVar('option' , $option);
 		
 		if ($option == 'edit') {
-		
+			if ($request->isAjax() == true) {
+				
+				$id = $request->getPost('id');
+				$name = $request->getPost('name');
+				$phone = $request->getPost('phone');
+				
+				$companyDetail = Company::findFirst("id='$id'");
+				$CompanyModel = new Company();
+				$CompanyModel = $companyDetail;
+				
+				$CompanyModel->name = $name;
+				$CompanyModel->phone = $phone;
+	
+				
+				if ($CompanyModel->update() == false) {
+					foreach ($CompanyModel->getMessages() as $message) {
+						$this->common->show_json($message, false);
+					}
+				}
+				$this->common->show_json('Update success!');
+			}
+			
+			$id = $request->get('id');
+			$companyDetail = Company::findFirst("id='$id'");
+			$this->view->setVar("companyDetail", $companyDetail);
+			
 		} elseif ($option == 'del') {
 			if ($request->isAjax() == true) {
 		
@@ -321,7 +440,30 @@ class SystemController extends ControllerBase
 				$this->common->show_json('Delete company successful!');
 			}
 		} elseif ($option == 'add') {
-		
+			
+			if ($request->isAjax() == true) {
+				$name = $request->getPost('name');
+				$phone = $request->getPost('phone');
+				$createtime = time();
+				if(empty($name))
+					$this->common->show_json('name is empty !',false);
+				if(empty($phone))
+					$this->common->show_json('phone is empay',false);
+				
+				$Company = new Company();
+				$Company-> name = $name;
+				$Company-> phone = $phone;
+				$Company-> disid = 0;
+				$Company-> createtime = $createtime;
+				
+				if ($Company->save() == false) {
+					foreach ($Company->getMessages() as $message) {
+						$this->common->show_json('Error : '.$message,false);
+					}
+				}
+				$this->common->show_json('Add success');
+			}
+			
 		} else {
 			$keyWork = $request->get('key');
 			$keyWork = empty($keyWork) ? '' : $keyWork;
@@ -1034,4 +1176,19 @@ class SystemController extends ControllerBase
 	/*Circle  manange*/
 	public function cindexAction(){
 	}
+
+	public function update_user_role($userid, $roleid){
+		$UserRole = UserRole::findFirst("user_id='$userid'");
+		$UserRoleModel = new UserRole();
+		$UserRoleModel = $UserRole;
+		
+		$UserRoleModel->role_id = $roleid;
+		
+		if ($UserRoleModel->update() == false) {
+			foreach ($UserRoleModel->getMessages() as $message) {
+				return 'Error:'.$message;
+			}
+		}
+		return true;
+	}	
 }
