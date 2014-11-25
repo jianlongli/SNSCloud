@@ -65,7 +65,7 @@
 				<div id="kakamenu">
 					<?php if ($this->session->get('auth') != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $userName;?><b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i>admin<b class="caret"></b></a>
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
 						<li><a href="javascript:core.setting('user');"><i class="font-icon icon-user"></i>用户设置</a></li>
 						<!-- 如果用户是root用户 -->
@@ -160,7 +160,9 @@
 
 						<div class="circleContiner-right pull-right">
 							<h3 id="workmanage">作业管理</h3>
+					
 							<div class="circleWork" style="display:none;">
+							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye'>更多>></a><span></h4>
 								<p>高三作业</p>	
 								<ul>
 									<li>新作业<span>交作业</span></li>
@@ -195,7 +197,7 @@ function place_circle_list (_data) {
 			_html += '<li class="circleItem">';
 				_html +='<a href="/circle/info/' + n.circleid + '"><img src="' + n.logoUrl + '" width="177" height="177" /></a>';
 				_html +='<span>' + n.userName + '</span>';
-				_html +='<h5><a href="/circle/info/' + n.circleid + '" >' + n.name + '</a></h5>';
+				_html +='<h5><a href="/circle/info' + n.circleid + '" >' + n.name + '</a></h5>';
 				_html +='<p>成员：' + n.total_count + '　资源：' + n.fileCount + '　讨论：' + n.topicCount + ' 作业：' + n.workCount + '　通知：36</p>';
 			_html +='</li>';
 

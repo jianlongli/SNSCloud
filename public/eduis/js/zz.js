@@ -51,7 +51,9 @@ $(document).ready(function() {
 				$.common._showMsg('tishi','失效日期不能早于开始日期 ');
 				return false;
 			}
-			
+			 if(!confirm("确定提交吗?")){
+				return false;
+			 }
 			$.ajax({
 				url:'assign/?type=submit&title='+title+'&description='+description+"&created="+created+"&endtime="+endtime+"&receiveid="+receiveid+"&circleid="+circleid+"&workid="+workid,
 				dataType:'json',

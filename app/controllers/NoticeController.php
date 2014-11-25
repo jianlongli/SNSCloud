@@ -166,7 +166,6 @@ class NoticeController extends ControllerBase
     	
     		
     	}
-    	
   
     
     }

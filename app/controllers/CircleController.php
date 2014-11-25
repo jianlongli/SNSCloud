@@ -3,32 +3,37 @@
 use Phalcon\Tag as Tag;
 
 class CircleController extends ControllerBase
-{	
+{
+	public $userid = '';
+	public $username = '';
+	public $roleids = '';
+	
 	public function initialize()
 	{
-		
-//		echo urldecode('http://sg1b-excel.officeapps.live.com/x/_layouts/xlviewerinternal.aspx?ui=zh-CN&rs=zh-CN&WOPISrc=http%3A%2F%2Fsg1b-15-view-wopi.wopi.live.net%3A808%2Foh%2Fwopi%2Ffiles%2F%40%2FwFileId%3FwFileId%3Dhttp%3A%2F%2F182.92.185.228%3A8198%2F%2Fcircle%2FfileProxy%3Fpath%3D%252Fhome%252Fguohuiwang%252Fsnscloud%252Ftrunk%252FSNSCloud%252Fdata%252Fc_52%252Fprivate%252F%25E6%2589%25B9%25E9%2587%258F%25E4%25B8%258A%25E4%25BC%25A0%25E4%25BF%25A1%25E6%2581%25AF%25E8%25A1%25A8-%25E6%259D%258E%25E6%2583%25B3.xls&access_token=1&access_token_ttl=0')
-//		;
-//		echo '<hr>';
-//		echo urldecode('http://sg1b-excel.officeapps.live.com/x/_layouts/xlviewerinternal.aspx?ui=zh-CN&rs=zh-CN&WOPISrc=http%3A%2F%2Fsg1b-15-view-wopi.wopi.live.net%3A808%2Foh%2Fwopi%2Ffiles%2F%40%2FwFileId%3FwFileId%3Dhttp%253A%252F%252Fdemo.kalcaddle.com%252Fdata%252FUser%252Fguest%252Fhome%252F%252FLinux%25E6%259C%258D%25E5%258A%25A1%25E4%25BB%258B%25E7%25BB%258D.xls&access_token=1&access_token_ttl=0');
-//		echo '<HR>';
-//		echo urldecode('http%3A%2F%2Fdemo.kalcaddle.com%2Fdata%2FUser%2Fguest%2Fhome%2F%2FLinux%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D.xls')
-//		;
-//		die;
 		$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../config/config.ini');
 		$this->session->set('object_name', $config->object->object_name);
 
 		parent::initialize();
-		if (!$this->session->get('auth')) {
-			return $this->forward('session/index');
-		}
-		$userInfo = $this->session->get('auth');
-		$this->view->setVar ('userName', $userInfo ['username']);
+
+                /*Loading public part*/
+                $authInfo = $this->session->get('auth');
+                if (!$authInfo) {
+                        return $this->forward('session/index');
+                }
+
+                $this -> userid = $authInfo['userid'];
+                $this -> username = $authInfo['username'];
+                $this -> roleids = $authInfo['roleids'];
+
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-        $circleList = Circle::find();
-        $this->view->setVar('circleList',$circleList);
+		$sql = "SELECT Circle.name name FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+
+		$this->view->setVar('roleids',$authInfo['roleids']);
+                $this->view->setVar('circleList',$circleList);
+		
 	}
 
 	public function indexAction()
@@ -44,7 +49,7 @@ class CircleController extends ControllerBase
 	}
 
 	public function treeListAction($app, $type='') { // 树结构
- 	
+
 		if (isset($type) && $type=='init'){
 			$this->_tree_init($app);
 		}
@@ -66,7 +71,6 @@ class CircleController extends ControllerBase
 		$parameters = array(
 				"parenturl" => $this_path
 				);
-
 		$gCloudfileManage = GCloudfileManage::find(array(
 					$conditions,
 					'bind' => $parameters
@@ -1633,6 +1637,8 @@ class CircleController extends ControllerBase
 			$info = Circle::findFirst('circleid=' . $Id);
 			Tag::setTitle($this->session->get('object_name').' | ' . $info->name);
 			$this->view->setVar('circleId', $Id);
+			$iscirclemanage = $info->userid == $this->userid ? true : false;
+			$this->view->setVar('iscirclemanager',$iscirclemanage);
 		}
 		$this->view->setTemplateAfter('topbar');
 	}
@@ -1643,7 +1649,6 @@ class CircleController extends ControllerBase
 	 * 2014/11/13
 	 */
     public function fileProxyAction() {
-    	
     	$this_path = $this->request->get('path');
     	$cCloudfileManage = CCloudfileManage::findFirst("url='$this_path'");
     	
