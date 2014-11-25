@@ -162,8 +162,8 @@
 		
 		/*Edit member*/
 		$(".Editopration").live('click' , function(){
-		
-	               art.dialog.open('/system/member/edit?id=123',{
+		      var _id = $(this).data('id');		      		
+	               art.dialog.open('/system/member/edit?id=' + _id ,{
                                 id: 'memberAdd',
                                 fixed : true,
                                 title : '新增用户',
@@ -212,6 +212,31 @@
 				width : '700px',
 			});
 		});
+		
+		$(".editCompany").live('click', function(){
+			var _id = $(this).data('id');
+			art.dialog.open('/system/company/edit?id=' + _id ,{
+				id: 'editCompany',
+				fixed : true,
+				title : '编辑单位',
+				lock : true,
+				height : '460px',
+				width : '700px',
+			});			
+		});
+		
+		$(".companyManage").live('click',function () {
+			var _type = $(this).attr("data");
+			art.dialog.open('/system/company/add',{
+				id: 'companyAdd',
+				fixed : true,
+				title : '新增单位',
+				lock : true,
+				height : '460px',
+				width : '700px',
+			});
+		});		
+		
 	
 		/*Invite manage */
 		$(".inviteManage").live('click' , function(){

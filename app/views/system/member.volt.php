@@ -105,8 +105,115 @@
   </script>  
 
 <?php }elseif($option == 'edit') { ?>
-	xxxxxxxxxxxx
-	xxxxxxx
+
+	<?php echo $this->tag->stylesheetLink('./eduis/css/styletcs.css'); ?>
+	<?php echo $this->tag->javascriptInclude('./eduis/js/jquery.min.js'); ?>
+	<?php echo $this->tag->javascriptInclude('./static/js/lib/artDialog/jquery-artDialog.js?skin=default'); ?>
+	<?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/common.js'); ?>
+	<div class="YHgl">
+  	<div id="message" style="display:none;"></div>
+    <form id='editMemberForm' action='/system/member/edit' method="POST">
+    	<input type="hidden" name="userid" value="<?php echo $userDetail->userid;?>" ?>
+  	<ul>
+    	<li>
+        	<div class="xtulleft">用户名：</div>
+            <div class="xtulright">
+            	<input type="text" class="xtrpsw" value="<?php echo $userDetail->username;?>" readonly="readonly" />
+            </div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulleft">邮箱：</div>
+            <div class="xtulright">
+            	<input type="text" class="xtrpsw" name="email" id="email" value="<?php echo $userDetail->email;?>" />
+            	<span  class="spancolor">*&nbsp;邮箱不能为空</span>
+            </div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulleft">密码：</div>
+            <div class="xtulright">
+            	<input type="password" class="xtrpsw" name="password" id="password"/>
+                <span  class="spancolor">*&nbsp;长度&nbsp;3~20&nbsp;个字符</span>
+            </div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulleft">确认密码：</div>
+            <div class="xtulright">
+            	<input type="password" class="xtrpsw" name="repassword" id="repassword"/>
+                <span  class="spancolor">*&nbsp;长度&nbsp;3~20&nbsp;个字符</span>
+            </div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulleft">角色：</div>
+            <div class="xtulright">
+            	<span><?php echo $userDetail->userrole;?> </span>
+                <span  class="spancolor">*</span>
+            </div>
+            <div class="clear"></div>
+        </li>
+        
+        <li>
+        	<div class="xtulleft">真实姓名：</div>
+            <div class="xtulright"><input type="text" class="xtrpsw" name="name" id="name" value="<?php echo $userDetail->name;?>" /> <span  class="spancolor">*&nbsp;不能超过20&nbsp;个字符</span></div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulleft">性别：</div>
+            <div class="xtulright">
+	    	<?php if($userDetail->sex == 1){ ?>
+                <span><input type="radio" name="sex" value="1" checked="checked"/>男</span>
+                <span><input type="radio"  name="sex" value="0" class="span"/>女</span>
+		<?php }else{ ?>
+                <span><input type="radio" name="sex" value="1" />男</span>
+                <span><input type="radio"  name="sex" value="0" class="span" checked="checked" />女</span>
+		<?php } ?>
+                <span class="spancolor">*</span>
+            </div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulleft">单位：</div>
+            <div class="xtulright"><input type="text" name="company" id="company" class="xtrpsw"/></div>
+            <div class="clear"></div>
+        </li>
+        <li>
+        	<div class="xtulcent">
+                 <input type="submit" value="确定" class="Okbutq"  />
+                 <input type="button" value="取消" class="Okbutq1"  />
+         	</div>
+        </li>
+    </ul>
+    </form>
+  </div>
+  <script>
+	$(function(){
+		$(".Okbutq1").live('click',function(){
+			art.dialog.close();
+		});
+		
+		$('#editMemberForm').bind('submit',function(){
+			$.common._ajax('editMemberForm',editMemberFormCallback);
+			//art.dialog.close();
+			return false;
+		});
+		
+	});
+	
+	function editMemberFormCallback( _data ){
+		console.log(_data);
+		if(!_data.code){
+			$.common._showMsg ('message', _data.data);
+		}else{
+			$.common._showMsg ('message', _data.data);
+			//art.dialog.close();
+		}
+	}
+	
+  </script>  
+
 <?php }else{ ?>
 
 <ul>
