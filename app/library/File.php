@@ -563,18 +563,22 @@ class File extends Phalcon\Mvc\User\Component
 				$size = filesize($file);
 				header("Cache-Control: public");
 				header("Content-Type: application/octet-stream");
-				$filename = $this->get_path_this($file);//解决在IE中下载时中文乱码问题
+//				$filename = $this->get_path_this($file);//解决在IE中下载时中文乱码问题
+				$filename = $gLocalfileManage->name;
+//				var_dump($filename)
+//				;die;
 				if(preg_match('/MSIE/',$_SERVER['HTTP_USER_AGENT'])){
 					$filename = str_replace('+','%20',urlencode($filename));
 				}
-				header("Content-Disposition: attachment;filename=".$this->get_path_this($file));
+//				header("Content-Disposition: attachment;filename=".$this->get_path_this($file));
+				header("Content-Disposition: attachment;filename=" . $filename);
 	
 				if ($start > 0) {
 					header("HTTP/1.1 206 Partial Content");
 					header("Content-Length: " . ($size - $start));
-					header("Content-Ranges: bytes".$start ."-".($size - 1)."/" .$size);
+					header("Content-Ranges: bytes" . $start . '-' . ($size - 1) . "/" . $size);
 				}else{
-					header("Content-Length: $size");
+					header("Content-Length: " . $size );
 					header("Accept-Ranges: bytes");
 				}
 	
@@ -645,8 +649,9 @@ class File extends Phalcon\Mvc\User\Component
 		
 		if (!file_exists($file)) $this->common->show_json('file not exists',false);
 		$mime = $this->web->get_file_mime($this->get_path_ext($file));
+//		$mime = 'application/octet-stream';
 		header("Cache-Control:public");
-		header("Content-Type:".$mime);
+		header("Content-Type:" . $mime);
 		header("Content-Length: ".filesize($file)); //输出总长
 		$fp = fopen($file, "r");
 		set_time_limit(0);
@@ -742,9 +747,15 @@ class File extends Phalcon\Mvc\User\Component
 	public function c_upload ($fileInput, $path = './') {
 		global $config,$L;
 		$file = $_FILES [$fileInput];
+//		ini_set('upload_max_filesize', '100M');
+//		var_dump($_FILES);
+//		die;
 		
-		if (!isset($file))
+		if (!isset($file) )
 			$this->common->show_json('上传文件为空', false);
+		else if ( $file ['error']) {
+			$this->common->show_json('上传错误', false);
+		}
 	
 		$file_name = $this->iconv_system($file['name']);
 		$info = $this->_c_upload($file['name'], $file['tmp_name'], $file['size'], $path.$file_name, $path);
@@ -1212,20 +1223,11 @@ class File extends Phalcon\Mvc\User\Component
 				$this->flash->error('<span style="color:#F00">'.(string) $message.'</span>');
 			}
 		}else{
-			//if (is_dir($dir) || mkdir($dir, $mode))
-			//return $CircleCloudfileManage->ccloudid;
-			//if (!$this->mk_dir(dirname($dir), $mode))
-			//	return false;
-			//	mkdir($dir, $mode);
-
-			if(!is_dir($dir)){
-				if( ! mkdirs(dirname($dir))){
-					return false;
-				}
-				if( ! mkdir($dir,$mode)){
-					return false;
-				}
-			}
+			if (is_dir($dir) || mkdir($dir, $mode))
+			return $CircleCloudfileManage->ccloudid;
+			if (!$this->mk_dir(dirname($dir), $mode))
+				return false;
+				mkdir($dir, $mode);
 			
 		}
 	

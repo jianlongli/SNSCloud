@@ -3,37 +3,23 @@
 use Phalcon\Tag as Tag;
 
 class CircleController extends ControllerBase
-{
-	public $userid = '';
-	public $username = '';
-	public $roleids = '';
-	
+{	
 	public function initialize()
 	{
 		$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../config/config.ini');
 		$this->session->set('object_name', $config->object->object_name);
 
 		parent::initialize();
-
-                /*Loading public part*/
-                $authInfo = $this->session->get('auth');
-                if (!$authInfo) {
-                        return $this->forward('session/index');
-                }
-
-                $this -> userid = $authInfo['userid'];
-                $this -> username = $authInfo['username'];
-                $this -> roleids = $authInfo['roleids'];
-
+		if (!$this->session->get('auth')) {
+			return $this->forward('session/index');
+		}
+		$userInfo = $this->session->get('auth');
+		$this->view->setVar ('userName', $userInfo ['username']);
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-		$sql = "SELECT Circle.name name FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
-                $circleList = $this->modelsManager->executeQuery ( $sql );
-
-		$this->view->setVar('roleids',$authInfo['roleids']);
-                $this->view->setVar('circleList',$circleList);
-		
+        $circleList = Circle::find();
+        $this->view->setVar('circleList',$circleList);
 	}
 
 	public function indexAction()
@@ -49,7 +35,7 @@ class CircleController extends ControllerBase
 	}
 
 	public function treeListAction($app, $type='') { // 树结构
-
+ 	
 		if (isset($type) && $type=='init'){
 			$this->_tree_init($app);
 		}
@@ -1638,8 +1624,6 @@ class CircleController extends ControllerBase
 			$info = Circle::findFirst('circleid=' . $Id);
 			Tag::setTitle($this->session->get('object_name').' | ' . $info->name);
 			$this->view->setVar('circleId', $Id);
-			$iscirclemanage = $info->userid == $this->userid ? true : false;
-			$this->view->setVar('iscirclemanager',$iscirclemanage);
 		}
 		$this->view->setTemplateAfter('topbar');
 	}
@@ -1650,6 +1634,7 @@ class CircleController extends ControllerBase
 	 * 2014/11/13
 	 */
     public function fileProxyAction() {
+    	
     	$this_path = $this->request->get('path');
     	$cCloudfileManage = CCloudfileManage::findFirst("url='$this_path'");
     	

@@ -16,3 +16,6 @@ doc/*.txt
 .buildpath
 # 忽略苹果文件
 .DS_Store
+
+data/*
+public/circlestatic/img/*

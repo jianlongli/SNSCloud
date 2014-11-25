@@ -66,7 +66,7 @@
 				<div id="kakamenu">
 					<?php if ($this->session->get('auth') != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i>admin<b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $userName;?><b class="caret"></b></a>
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
 						<li><a href="javascript:core.setting('user');"><i class="font-icon icon-user"></i>用户设置</a></li>
 						<!-- 如果用户是root用户 -->
@@ -144,15 +144,10 @@
 						</div><!-- .circleContiner-left end -->
 
 						<div class="circleContiner-right pull-right">
-							<?php if($roleids == 1 || $iscirclemanager){?>
-								<a href="#" class="btnF sendNotice">发布通知</a>
-								<a href="#" id="zuoye" class="btnF work" data-id="<?php echo $circleId; ?>">布置作业</a>
-								<a href="javascript:;" id="discuss_begin_button" data-id="<?php echo $circleId;?>" class="btnF discuss">发起讨论</a>
-								<a class="btnF circlemanage"  href="/circlemanage?id=<?php echo $circleId;?>" id="circleManage">圈子管理</a>
-							<?php }else{ ?>
-								<a class="btnF introcircle"  href="/info?id=<?php echo $circleId;?>">了解圈子</a>
-								<a class="btnF workmanage"  href="/info?id=<?php echo $circleId;?>" >作业管理</a>
-							<?php } ?>
+							<a href="#" class="btnF sendNotice">发布通知</a>
+							<a href="#" id="zuoye" class="btnF work" data-id="<?php echo $circleId; ?>">布置作业</a>
+							<a href="javascript:;" id="discuss_begin_button" data-id="<?php echo $circleId;?>" class="btnF discuss">发起讨论</a>
+							<a class="btnF circlemanage"  href="/circlemanage?id=<?php echo $circleId;?>" id="circleManage">圈子管理</a>
 
 							<h4>圈子动态<span><a href="javascript:;">更多>></a><span></h4>
 							<div class="dynamic">
