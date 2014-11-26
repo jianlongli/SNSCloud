@@ -197,7 +197,7 @@ function place_circle_list (_data) {
 			_html += '<li class="circleItem">';
 				_html +='<a href="/circle/info/' + n.circleid + '"><img src="' + n.logoUrl + '" width="177" height="177" /></a>';
 				_html +='<span>' + n.userName + '</span>';
-				_html +='<h5><a href="/circle/info' + n.circleid + '" >' + n.name + '</a></h5>';
+				_html +='<h5><a href="/circle/info/' + n.circleid + '" >' + n.name + '</a></h5>';
 				_html +='<p>成员：' + n.total_count + '　资源：' + n.fileCount + '　讨论：' + n.topicCount + ' 作业：' + n.workCount + '　通知：36</p>';
 			_html +='</li>';
 
