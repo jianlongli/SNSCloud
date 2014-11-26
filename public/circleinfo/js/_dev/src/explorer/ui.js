@@ -421,6 +421,20 @@
 					$('.tools-left .msg').stop(true,true).fadeIn(100);
 				},
 				success:function(data){
+					
+					if ($('#newfile').size() == 1) {
+						if($('#newfile').attr('data-lock')) {
+							$('#newfile').removeAttr('data-lock');
+						}
+					}
+					
+					if ($('#newfolder').size() == 1) {
+						if($('#newfolder').attr('data-lock')) {
+							$('#newfolder').removeAttr('data-lock');
+						}
+					}
+					
+					
 					$('.tools-left .msg').fadeOut(100);
 					if (!data.code) {	
 						core.tips.tips(data);

@@ -226,7 +226,6 @@ var Tips =  (function(){
 			});
 	};
 	var loading = function(msg,code,offset_top){
-		alert(5);
 		if (typeof(msg) == 'object'){
 			code=msg.code;msg = msg.data;
 		}
