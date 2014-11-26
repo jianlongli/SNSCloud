@@ -42,7 +42,7 @@
         </div>
     </li>
     <li>
-    	<div class="xtulleft"><input type="button"  value="新建" class="XTOk" onMouseOver="this.className='XTUpOk'" onMouseOut="this.className='XTOffOk'"  onclick=" $.alertUrl('系统管理-圈子审批-新建圈子.html', '　新建圈子', 700, 600);"/></div>
+    	<div class="xtulleft"><input type="button"  value="新建" id="create_circle_button" class="XTOk" /></div>
     	<?php if($page->total_pages > 1) { ?>
         <div class="xtulright">
         	<div class="xtRleft">总共有&nbsp;<span><?php echo $page->total_items;?></span>条</div>

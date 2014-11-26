@@ -43,11 +43,12 @@ class Security extends Plugin
 				'circle' => array('index', 'mkdir'),
 				'invoices' => array('index', 'profile'),
 				'sysmanage' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex'),
-				'system' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex'),
+				'system' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex','export'),
 				'work' => array('index','assign','receive','mywork','addwork'),
 				'circlemanage' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
 				'info' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
-				'topic' => array('index')
+				'topic' => array('index'),
+				'notice' => array('index', 'send','received'),
 			);
 			
 			foreach ($privateResources as $resource => $actions) {
@@ -65,7 +66,6 @@ class Security extends Plugin
 				'circle' => array('index', 'mkdir'),
 				'contact' => array('index', 'send'),
 				'ceditor' => array('index', 'edit', 'fileGet', 'fileSave'),
-				'notice' => array('index', 'send','received'),
 				'video' => array('index'),
 				'topic' => array('index')
 			);

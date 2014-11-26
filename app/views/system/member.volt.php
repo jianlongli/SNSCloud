@@ -221,7 +221,7 @@
     	<div class="yhulleft">
         	<span><input type="button" value="新增用户" class="yhbut1 memberManage" data="add"/></span>
             <span><input type="button" value="导入用户" class="yhbut2 memberManage" data="import" /></span>
-            <span><input type="button" value="导出用户" class="yhbut3 memberManage" data="export" /></span>
+            <span><a href="/system/export" class="yhbut3">导出用户</a></span>
         </div>
     	<div class="yhulright">
         <input type="text" class="xtrpsw" id="keyWord" value="<?php echo $page->key; ?>" />
