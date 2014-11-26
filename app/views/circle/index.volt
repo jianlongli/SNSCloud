@@ -7,6 +7,7 @@
 <?php echo $this->tag->javascriptInclude('./eduis/js/hover.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/circle.js'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/zz.js'); ?>
+<?php echo $this->tag->javascriptInclude('./eduis/js/alertInfo.js'); ?>
 
 	<div class="init_loading"><div><img src="<?php echo @$controllerName=='session' ? '../' : './'; ?>static/images/loading_simple.gif"/></div></div>
 
@@ -163,12 +164,12 @@
 					
 							<div class="circleWork" style="display:none;">
 							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye'>更多>></a><span></h4>
-								<p>高三作业</p>	
+								<p><?php echo $worklist->name; ?></p>	
 								<ul>
-									<li>新作业<span>交作业</span></li>
-									<li>2014-4-5</li>
-									<li>生效日期:2014-5-6</li>
-									<li>失效日期:2014-4-4</li>
+									<li>新作业<span onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $worklist->workid; ?>', '　交作业', 730,450);" >交作业</span></li>
+									<li><?php echo date("Y-m-d",$worklist->created); ?></li>
+									<li>生效日期:<?php echo date("Y-m-d",$worklist->starttime); ?></li>
+									<li>失效日期:<?php echo date("Y-m-d",$worklist->endtime); ?></li>
 								</ul>
 							</div>
 							<h4>圈子动态<span><a href="#">更多>></a><span></h4>
