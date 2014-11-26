@@ -4,7 +4,6 @@
 <script language="javascript">
  var child;
  function onClick (id) {
-
   window.open(id,"选择接收人","height=600, width=600, top=100,left=300,toolbar =no, menubar=no, scrollbars=yes, resizable=no, location=no, status=no");
  
  }

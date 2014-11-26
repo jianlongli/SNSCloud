@@ -21,7 +21,6 @@
                 <td>所属圈</td>
             </tr>
 
-
             <?php foreach($mywork_data as $val){ ?>
         	<tr>
             	<td style="text-align:left; padding-left:8px;"><a href="#" onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $val->workid; ?>&type=look', '　交作业', 730,350);"><? echo $val->name; ?></a></td>

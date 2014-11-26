@@ -46,7 +46,6 @@
 	$.alertUrl(url, '选择接收人', 610, 500);
 }
 </script>
-
 {{ form('notice/send', 'id': 'noticeForm','enctype':'multipart/form-data') }}	                
 	<input type="hidden" name="id" value="<?php echo $circle_id;?>" />
 	<div class="Qx1">

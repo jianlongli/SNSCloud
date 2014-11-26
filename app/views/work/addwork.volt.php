@@ -6,7 +6,6 @@
 <?php echo $this->tag->javascriptInclude('./eduis/js/jquery.min.js'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/alertInfo.js'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/zz.js'); ?>
-
 </head>
 <body>
    	<div class="fbtoz">交作业</div>
