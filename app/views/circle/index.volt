@@ -163,7 +163,7 @@
 							<h3 id="workmanage">作业管理</h3>
 					
 							<div class="circleWork" style="display:none;">
-							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye'>更多>></a><span></h4>
+							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye' data-circleid="0">更多>></a><span></h4>
 								<p><?php echo $worklist->name; ?></p>	
 								<ul>
 									<li>新作业<span onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $worklist->workid; ?>', '　交作业', 730,450);" >交作业</span></li>

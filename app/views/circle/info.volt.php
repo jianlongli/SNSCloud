@@ -151,7 +151,7 @@
 								<a class="btnF circlemanage"  href="/circlemanage?id=<?php echo $circleId;?>" id="circleManage">圈子管理</a>
 							<?php }else{ ?>
 								<a class="btnF introcircle"  href="/info?id=<?php echo $circleId;?>">了解圈子</a>
-								<a class="btnF workmanage"  href="/info?id=<?php echo $circleId;?>" >作业管理</a>
+								<a class="btnF workmanage"  id="myzuoye" data-circleid="<?php echo $circleId;?>" href="javascript:;" >作业管理</a>
 							<?php } ?>
 
 							<h4>圈子动态<span><a href="javascript:;">更多>></a><span></h4>
