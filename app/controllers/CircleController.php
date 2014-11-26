@@ -28,7 +28,7 @@ class CircleController extends ControllerBase
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-		$sql = "SELECT Circle.name name FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
                 $circleList = $this->modelsManager->executeQuery ( $sql );
 
 		$this->view->setVar('roleids',$authInfo['roleids']);
