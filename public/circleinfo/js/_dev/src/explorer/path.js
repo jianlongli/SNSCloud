@@ -265,6 +265,13 @@ define(function(require, exports) {
 
 	//====================桌面、文件管理器专用部分====================
 	var newFile = function(newname_ext) {
+		if ($('#newfile').size() == 1) {
+			if(! $('#newfile').attr('data-lock')) {
+				$('#newfile').attr('data-lock',1);
+			} else {
+				return false;
+			}
+		}
 		fileLight.clear();
 		if (newname_ext == undefined) newname_ext = 'txt';
 		var newname     = "newfile";
@@ -342,6 +349,15 @@ define(function(require, exports) {
 	};
 	//新建文件夹
 	var newFolder = function() {
+		
+		if ($('#newfolder').size() == 1) {
+			if(! $('#newfolder').attr('data-lock')) {
+				$('#newfolder').attr('data-lock',1);
+			} else {
+				return false;
+			}
+		}
+		
 		fileLight.clear();
 		var newname=LNG.newfolder;
 		var is_exist=0;

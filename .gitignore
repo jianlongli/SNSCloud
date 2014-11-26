@@ -19,3 +19,4 @@ doc/*.txt
 
 data/*
 public/circlestatic/img/*
+app/config/config.ini
