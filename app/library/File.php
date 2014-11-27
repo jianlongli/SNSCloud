@@ -1161,8 +1161,9 @@ class File extends Phalcon\Mvc\User\Component
 		$mode = 0777;
 		// $pdir="/home/zz/SNSCloud_v3/data/work/";
 		$pdir = DATA_BASIC_PATH.'/c_'.$circleId.'/private/作业上传/';
-		$dir=$pdir.$workid.'/';
+		//$dir=$pdir.$workid.'/';
 		$created=date("Y-m-d",$created); 
+		$dir=$pdir.$created."—提交微课程作业/";
 		$createtime=time();
 		
 		
