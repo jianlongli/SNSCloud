@@ -273,6 +273,16 @@
 	this._getFileBox = function(list){
 
 		var html="";
+//		if (list.size_friendly) {
+//			if (list.size_friendly > 1024 * 1024) {
+//				list.size_friendly = list.size_friendly / 1024 / 1024 + ' M';
+//			} else if (list.size_friendly > 1024) {
+//				list.size_friendly = list.size_friendly / 1024 + ' KB';
+//			} else {
+//				list.size_friendly = list.size_friendly + ' B';
+//			}
+//			
+//		}
 		if (list['ext'] == 'oexe' && list['icon'] != undefined) {
 			var icon = list.icon;
 			if (list.icon.search(G.static_path)==-1

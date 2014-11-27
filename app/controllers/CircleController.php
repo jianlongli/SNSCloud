@@ -331,8 +331,18 @@ class CircleController extends ControllerBase
 			}
 			else {
 				$temp['ext'] = $userFile->ext;
-				$temp['size'] = $userFile->size;
-				$temp['size_friendly'] = $userFile->sizefriendly;
+				$size = $userFile->size;
+				$temp['size'] = $size;
+				$sizeFriendly = $userFile->sizefriendly;
+				if ($size) {
+					if ($size > 1024 * 1024) {
+						$sizeFriendly = number_format( $size / 1024 /1024, 2) . ' M'; 
+					} else if ($size > 1024) {
+						$sizeFriendly = number_format ($size / 1024, 2) . ' KB';
+					} else 
+						$sizeFriendly = $size . ' B';
+				}
+				$temp['size_friendly'] = $sizeFriendly;
 				$list['filelist'][] = $temp;
 			}
 		}
