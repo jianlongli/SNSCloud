@@ -77,8 +77,9 @@ $(document).ready(function() {
 
 	$("#myzuoye").click(
 		function(){
+			var _id = $(this).data('circleid');
 			var dialog = art.dialog.open(
-			'work/mywork',
+			'/work/mywork?circleid=' + _id,
 			{	
 				id:'assign',
 				title: '布置作业', 

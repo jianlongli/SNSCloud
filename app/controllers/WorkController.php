@@ -163,8 +163,10 @@ class WorkController extends ControllerBase
 
 	public function myworkAction(){
 		$user = $this->session->get('auth');
+		$circleId = $this->request->get('circleid');
+		$searchCondition = empty($circleId) ? '' : ' AND Circle.circleid='.$circleId;
 		//$work_data= Work::find ('userid='.$user['userid'] );
-		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid,Circle.name cirlename ,Users.name as username FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid LEFT JOIN Circle ON Work.circleid =Circle.circleid LEFT JOIN Users ON WorkCommit.userid=Users.userid WHERE WorkCommit.userid=".$user['userid'];
+		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid,Circle.name cirlename ,Users.name as username FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid LEFT JOIN Circle ON Work.circleid =Circle.circleid LEFT JOIN Users ON WorkCommit.userid=Users.userid WHERE WorkCommit.userid=".$user['userid'].$searchCondition;
 		$mywork_data =  $this->modelsManager->executeQuery ( $sqls );
 		//$mywork_data=$this->commoncircle->get_page($mywork_data,$page,'/work/mywork',$this->pageSize,'5','3');
 		$this->view->setVar( 'mywork_data', $mywork_data);

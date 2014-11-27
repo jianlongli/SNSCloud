@@ -28,7 +28,7 @@ class CircleController extends ControllerBase
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-		$sql = "SELECT Circle.name name FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
                 $circleList = $this->modelsManager->executeQuery ( $sql );
 
 		$this->view->setVar('roleids',$authInfo['roleids']);
@@ -46,6 +46,17 @@ class CircleController extends ControllerBase
 		//             $this->flash->notice('This is a sample application of the Phalcon PHP Framework.
 		//                 Please don\'t provide us any personal information. Thanks');
 		//         }
+		
+		//zz查询最新的一条作业
+		$user = $this->session->get('auth');
+		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,Work.created created ,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." order by WorkCommit.commitid limit 1";
+		$mywork_data =  $this->modelsManager->executeQuery ( $sqls );
+		//print_r($mywork_data);die;
+		foreach($mywork_data as $v){
+			$worklist=$v;
+		}
+		 $this->view->setVar('worklist',$worklist);
+		
 	}
 
 	public function treeListAction($app, $type='') { // 树结构

@@ -1227,7 +1227,7 @@ class File extends Phalcon\Mvc\User\Component
 					return false;
 				}
 			}
-			
+			return $CircleCloudfileManage->ccloudid;
 		}
 	
 	}
