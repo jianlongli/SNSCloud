@@ -598,8 +598,14 @@ class CircleController extends ControllerBase
 			else {
 				$condition = "url='".$value['path']."'";
 			}
-
 			$cCloudfileManage = CCloudfileManage::findFirst($condition);
+			if ($cCloudfileManage->delete() == false) {
+				foreach($userrole->getMessages() as $message ){
+					$this->common->show_json('Error : '.$message,false);
+				}
+			}
+
+/*			$cCloudfileManage = CCloudfileManage::findFirst($condition);
 			$cManage = new CCloudfileManage();
 			$cManage = $cCloudfileManage;
 //			$cManage->url = time();
@@ -609,7 +615,7 @@ class CircleController extends ControllerBase
 				foreach ($cManage->getMessages() as $message) {
 					return $this->flash->error('<span style="color:#F00">'.(string) $message.'</span>');
 				}
-			}
+			}*/
 		}
 
 		$this->common->show_json('删除成功！');
