@@ -262,7 +262,8 @@ class CircleController extends ControllerBase
 			$user_path	= $request->get('this_path');
 			$task		= $request->get('task');
 			$action		= $request->get('action');
-		}
+		}	
+		
 
 		if ($task) {
 			$filenameExtension = FilenameExtension::find("category = '$action'");

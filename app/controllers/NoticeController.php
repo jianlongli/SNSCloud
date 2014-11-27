@@ -60,11 +60,7 @@ class NoticeController extends ControllerBase
      */
     public function sendAction()
     {
-       // $page =$this->request->get('page');
-       // if($page==""){
-       	// $page=1;
-       // }
-		$user = $this->session->get('auth');
+	$user = $this->session->get('auth');
     	if (!$user) {
     		return $this->forward('session/index');
     	}
@@ -72,21 +68,61 @@ class NoticeController extends ControllerBase
         $user_id=$user['userid'];//发布通知人
     	
     	$request = $this->request;
-		$circle_id = $request->getPost("circle_id");
-		$this->view->setVar('circle_id',$circle_id);
+	$circle_id = $request->getPost("circle_id");
+	$this->view->setVar('circle_id',$circle_id);
      	$notice_title = $request->getPost('notice_title');
     	$receive =$request->getPost("receive");
-		$receive=$receive=='N'?1:0;
+	$receive=$receive=='N'?1:0;
     	$back = $request->getPost("back");
     	$content = $request->getPost("content");
+	
+    	date_default_timezone_set('Asia/Shanghai');	// 上海时区
+
+		$showName = date('Y-m-d')."_" . $notice_title;
+		$pdir = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName . '/';
+		mkdirs($pdir);
+		$createtime = time();
+		$cLocalfileManage = new GLocalfileManage();
+		$cLocalfileManage->userid = $user['userid'];
+		$cLocalfileManage->name = $showName;
+		$cLocalfileManage->tags = $showName;
+		$cLocalfileManage->size = 0;
+		$cLocalfileManage->type = 'folder';
+		$cLocalfileManage->local = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
+		$cLocalfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
+		$cLocalfileManage->status = 0;
+		$cLocalfileManage->modifytime = $createtime;
+		$cLocalfileManage->createtime = $createtime;
+		$cLocalfileManage->save();
+
+		$cCloudfileManage = new CCloudfileManage();
+		$cCloudfileManage->parenturl = DATA_BASIC_PATH . '/c_' . $circle_id . '/private/通知文件/';
+		$cCloudfileManage->name = $showName;
+		$cCloudfileManage->oldurl = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
+		$cCloudfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
+		$cCloudfileManage->fileid = $cLocalfileManage->readAttribute('fileid');
+		$cCloudfileManage->userid = $user ['userid'];
+		$cCloudfileManage->ext = '';
+		$cCloudfileManage->type = 'folder';
+		$cCloudfileManage->accesstimes = 1;
+		$cCloudfileManage->isencryption = 0;
+		$cCloudfileManage->isreadable = 1;
+		$cCloudfileManage->iswriteable = 1;
+		$cCloudfileManage->size = 0;
+		$cCloudfileManage->sizefriendly = '0 B';
+		$cCloudfileManage->status = 0;
+		$cCloudfileManage->lastaccesstime = $createtime;
+		$cCloudfileManage->modifytime = $createtime;
+		$cCloudfileManage->createtime = $createtime;
+		$cCloudfileManage->save();
+	
     	if ($request->hasFiles() == true) {
-    		foreach ($request->getUploadedFiles("notice_fujian") as $file){
-	$pdir = DATA_BASIC_PATH.'/c_'.$circle_id.'/private/通知上传/';
-	$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), $pdir);
-    		$fujian =$pdir.$file->getName();
-    		// $fujian =$this->upfile->upload_files(UPLOAD_FILE,$file);
-    		$fujianname=$file->getName();
-    		
+			foreach ($request->getUploadedFiles("notice_fujian") as $file){
+				$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), DATA_BASIC_PATH.'/c_'.$circle_id.'/private/通知文件/' . $showName . '/');
+				//$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), $pdir);
+				$fujian =$pdir.$file->getName();
+				// $fujian =$this->upfile->upload_files(UPLOAD_FILE,$file);
+				$fujianname=$file->getName();
     		}
     		
     	}else{
@@ -104,7 +140,6 @@ class NoticeController extends ControllerBase
 		$notice->content=$content;
 		$notice->notice_fujian=$fujian;
 		$notice->fujian_name = $fujianname;		
-    	date_default_timezone_set('Asia/Shanghai');	// 上海时区
 
     	$notice->add_time=date("Y-m-d H:i:s");
     	$notice->is_delete=0;
@@ -551,5 +586,22 @@ class NoticeController extends ControllerBase
 
     }
 
+}
+if (! function_exists ('mkdirs')) {
+	/**
+	 * 递归创建目录
+	 * @param $dir
+	 */
+	function mkdirs($dir) {
+		if(!is_dir($dir)){
+			if( ! mkdirs(dirname($dir))){
+				return false; 
+			}
+			if( ! mkdir($dir,0777))	{
+				return false;		
+			}
+		}
+		return true;
+	}
 }
 	

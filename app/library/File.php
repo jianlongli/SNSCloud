@@ -1069,8 +1069,7 @@ class File extends Phalcon\Mvc\User\Component
 	
 	
 	function _circleupload($name, $tmp_name, $size, $save_path, $path){
-		global $L;
-
+		//global $L;
 		// 创建时间
 		$createtime = time();
 		
@@ -1143,7 +1142,6 @@ class File extends Phalcon\Mvc\User\Component
 		}
 		
 		//$this->updateParentUrlSize($path, $size);
-		
 		if(move_uploaded_file($tmp_name,$save_path)){
 			//return array('code'=>true,'data'=>'上传成功!','path'=>$save_path);
 			return $CircleCloudfileManage->ccloudid;
