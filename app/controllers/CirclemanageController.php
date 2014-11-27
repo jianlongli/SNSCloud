@@ -19,6 +19,20 @@ class CirclemanageController extends ControllerBase
 			return $this->forward('session/index');
 		}
 		
+
+                $this -> userid = $authInfo['userid'];
+                $this -> username = $authInfo['username'];
+                $this -> roleids = $authInfo['roleids'];
+
+		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
+		$this->view->setVar('logList', $logList);
+
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+
+		$this->view->setVar('roleids',$authInfo['roleids']);
+                $this->view->setVar('circleList',$circleList);
+
 		$page = $this->request->get('page');
 		$this -> currentPage = isset($page) && !empty($page) ? $page : $this-> currentPage;
 		$pageSize = $this->request->get('pageSize');

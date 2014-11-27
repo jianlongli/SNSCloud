@@ -9,32 +9,33 @@
 
 <div class="init_loading dn"><div><img src="./static/images/loading_simple.gif"/></div></div>
 
-<div class="frame-main">
-	<div class='frame-left'>
-		<div class='GiLtop'><h2>我的圈子</h2></div>
-		<!--代码开始-->
-    	<div id="wrapper-250">
-	        <ul class="accordion">
-	        	<li id="one" class="files"> <a href="index">全部文件</a>
-	            	<ul class="sub-menu"></ul>
-	            </li>
-	            <li id="two" class="cricle"> <a class="active" href="circle" value='32'>我的圈子</a>
-	            	<ul class="sub-menu"  style="display: block;">
-	                	<li><a href="#"><em>01</em>我的圈子1</a></li>
-	                    <li><a href="#"><em>02</em>我的圈子2</a></li>
-	                </ul>
-	            </li>
-	            <li id="three" class="cloud"> <a href="#three">我的讨论</a>
-	            </li>
-	            <li id="four" class="sign"> <a href="#four">外来文件</a>
-	            	<ul class="sub-menu">
-	                	<li><a href="#"><em>01</em>外来文件1</a></li>
-	                    <li><a href="#"><em>02</em>外来文件2</a></li>
-	                    <li><a href="#"><em>03</em>外来文件3</a></li>
-	                </ul>
-	            </li>
-			</ul>
-		</div>
+	<div class="frame-main">
+		<div class='frame-left'>
+			<div class="GiLtop"><h2>我的圈子</h2></div>
+			<!--代码开始-->
+            <div id="wrapper-250">
+                <ul class="accordion">
+                    <li id="one" class="files"> <a class="active" href="/circle">全部圈子<span>130</span></a>
+                        <ul class="sub-menu" style="display: block;">
+			    <?php foreach($circleList as $val){?>
+			    <li><a href="/circle/info/<?php echo $val->circleid;?>"><?php echo $val->name;?></a></li>
+			    <?php }?>
+
+			    <!--
+                            <li><a id="picture" href="#picture"><em></em>图片</a></li>
+                            <li><a id="video" href="#video"><em></em>视频</a></li>
+                            <li><a id="music" href="#music"><em></em>音乐</a></li>
+                            <li><a id="document" href="#document"><em></em>文档</a></li>
+                            <li><a id="other" href="#other"><em></em>其他</a></li>
+			    -->
+                        </ul>
+                    </li>
+                    <li id="two" class="circle"> <a href="/index">我的G盘<span>261</span></a></li>
+                    <li id="three" class="cloud"> <a href="#three">主题讨论<span>305</span></a></li>
+                    <li id="four" class="share"> <a href="#four">外来文件<span>15</span></a></li>
+                    <li id="five" class="trash"> <a href="#five">回收站<span></span></a></li>
+                </ul>
+            </div>
         <!--代码结束-->
 	</div><!-- / frame-left end-->
 		
@@ -55,18 +56,20 @@
             
 			<div class="top_right">
 				<div id="kakamenu">
-					<?php if ($this->session->get('auth') != '') { ?>
+					<?php $authInfo = $this->session->get('auth');?>
+					<?php if ($authInfo != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i>admin<b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $authInfo['username'];?><b class="caret"></b></a>
+					<input type="hidden" value="<?php echo $authInfo['roleids'];?>" id='roleid'/> 
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
-						<li><a href="javascript:core.setting('user');"><i class="font-icon icon-user"></i>用户设置</a></li>
-						<!-- 如果用户是root用户 -->
-							<li><a href="javascript:core.setting('member');"><i class="font-icon icon-group"></i>成员管理</a></li>
-						<!-- End if -->
-		
-						<li><a href="javascript:core.setting('about');"><i class="font-icon icon-info-sign"></i>关于</a></li>
-						<li role="presentation" class="divider"></li>
-						<li><a href="session/end"><i class="font-icon icon-off"></i>退出</a></li>
+						<li><a href="/system#personal">个人信息</a></li>
+						<li><a href="/system#invite">圈子邀请(3)</a></li>
+						<li><a href="/system#member">用户管理</a></li>
+						<li><a href="/system#company">单位管理</a></li>
+						<li><a href="/system#circle">圈子审批</a></li>
+						<li><a href="/system#setting">系统设置</a></li>
+						<li><a href="/system#log">系统日志</a></li>
+						<li><a href="javascirpt:;">退出</a></li>
 					</ul>		
 					<?php } ?>
 				</div>
@@ -172,6 +175,14 @@
 		$(".Delopration").live('click',function () {
 			$.system._ajxRequest( '/system/' + $(".dijxt").attr("data") + '/del' , { id: $(this).data('id')} , memberCallback);
 		});
+
+		$("body").click(function(){
+			$(".menu-topbar_user").css('display') == 'none' ? '' : $(".menu-topbar_user").hide();
+		});	
+		$("#topbar_user").click(function(){
+			$(".menu-topbar_user").css('display') == 'none' ? $(".menu-topbar_user").show() : $(".menu-topbar_user").hide();
+			return false;
+		});		
 		
 		/*Edit member*/
 		$(".Editopration").live('click' , function(){

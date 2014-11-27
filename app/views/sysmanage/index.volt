@@ -59,18 +59,20 @@
             
 			<div class="top_right">
 				<div id="kakamenu">
-					<?php if ($this->session->get('auth') != '') { ?>
+					<?php $authInfo = $this->session->get('auth');?>
+					<?php if ($authInfo != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $userName;?><b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $authInfo['username'];?><b class="caret"></b></a>
+					<input type="hidden" value="<?php echo $authInfo['roleids'];?>" id='roleid'/> 
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
-						<li><a href="javascript:core.setting('user');"><i class="font-icon icon-user"></i>用户设置</a></li>
-						<!-- 如果用户是root用户 -->
-							<li><a href="javascript:core.setting('member');"><i class="font-icon icon-group"></i>成员管理</a></li>
-						<!-- End if -->
-		
-						<li><a href="javascript:core.setting('about');"><i class="font-icon icon-info-sign"></i>关于</a></li>
-						<li role="presentation" class="divider"></li>
-						<li><a href="session/end"><i class="font-icon icon-off"></i>退出</a></li>
+						<li><a href="/system#personal">个人信息</a></li>
+						<li><a href="/system#invite">圈子邀请(3)</a></li>
+						<li><a href="/system#member">用户管理</a></li>
+						<li><a href="/system#company">单位管理</a></li>
+						<li><a href="/system#circle">圈子审批</a></li>
+						<li><a href="/system#setting">系统设置</a></li>
+						<li><a href="/system#log">系统日志</a></li>
+						<li><a href="javascirpt:;">退出</a></li>
 					</ul>		
 					<?php } ?>
 				</div>
@@ -363,6 +365,15 @@ $(function(){
 		
 		$.sysmanage._updateData(_action,_param,updateCallback);
 	});
+	
+	
+	$("body").click(function(){
+		$(".menu-topbar_user").css('display') == 'none' ? '' : $(".menu-topbar_user").hide();
+	});	
+	$("#topbar_user").click(function(){
+		$(".menu-topbar_user").css('display') == 'none' ? $(".menu-topbar_user").show() : $(".menu-topbar_user").hide();
+		return false;
+	});		
 	
 });
 
