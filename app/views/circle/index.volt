@@ -2,12 +2,11 @@
 <?php echo $this->tag->stylesheetLink('./eduis/css/stylesp.css'); ?>
 <?php echo $this->tag->stylesheetLink('./eduis/css/style.css'); ?>
 <?php echo $this->tag->stylesheetLink('./eduis/css/circle.css'); ?>
-<?php echo $this->tag->javascriptInclude('./eduis/js/jquery.min.js'); ?>
-<?php echo $this->tag->javascriptInclude('./eduis/js/shipj.js'); ?>
-<?php echo $this->tag->javascriptInclude('./eduis/js/hover.js'); ?>
+<?php echo $this->tag->javascriptInclude('./circlestatic/js/jquery.min.js'); ?>
+<?php echo $this->tag->javascriptInclude('./circlestatic/js/shipj.js'); ?>
+<?php echo $this->tag->javascriptInclude('./circlestatic/js/hover.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/circle.js'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/zz.js'); ?>
-<?php echo $this->tag->javascriptInclude('./eduis/js/alertInfo.js'); ?>
 
 	<div class="init_loading"><div><img src="<?php echo @$controllerName=='session' ? '../' : './'; ?>static/images/loading_simple.gif"/></div></div>
 
@@ -64,18 +63,20 @@
               	
 				<div class="top_right">
 				<div id="kakamenu">
-					<?php if ($this->session->get('auth') != '') { ?>
+					<?php $authInfo = $this->session->get('auth');?>
+					<?php if ($authInfo != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i>admin<b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $authInfo['username'];?><b class="caret"></b></a>
+					<input type="hidden" value="<?php echo $authInfo['roleids'];?>" id='roleid'/> 
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
-						<li><a href="javascript:core.setting('user');"><i class="font-icon icon-user"></i>用户设置</a></li>
-						<!-- 如果用户是root用户 -->
-							<li><a href="javascript:core.setting('member');"><i class="font-icon icon-group"></i>成员管理</a></li>
-						<!-- End if -->
-		
-						<li><a href="javascript:core.setting('about');"><i class="font-icon icon-info-sign"></i>关于</a></li>
-						<li role="presentation" class="divider"></li>
-						<li><a href="session/end"><i class="font-icon icon-off"></i>退出</a></li>
+						<li><a href="/system#personal">个人信息</a></li>
+						<li><a href="/system#invite">圈子邀请(3)</a></li>
+						<li><a href="/system#member">用户管理</a></li>
+						<li><a href="/system#company">单位管理</a></li>
+						<li><a href="/system#circle">圈子审批</a></li>
+						<li><a href="/system#setting">系统设置</a></li>
+						<li><a href="/system#log">系统日志</a></li>
+						<li><a href="javascirpt:;">退出</a></li>
 					</ul>		
 					<?php } ?>
 				</div>
@@ -83,61 +84,6 @@
 				<div style="clear:both"></div><!-- top_right End -->
               	
               </div>
-            <!--
-            <div class="GIRight2">
-		    <div class="GIRight2Info">
-                	<div class="GIRight21">
-                        <table width="87" class="GIRight2InfoTable">
-                        	<tr>
-                            	<td width="11"></td>
-                            	<td width="22" class="GIRight211"></td>
-                                <td width="42"><a href="#">上传</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="GIRight22">
-                    	<table width="254" class="GIRight2InfoTable">
-                        	<tr>
-                            	<td width="15"></td>
-                            	<td width="20" class="GIRight212"></td>
-                                <td width="103" class="GIRight2InTabTd"><a href="#">新建文件夹</a></td>
-                                <td width="15"></td>
-                                <td width="30" class="GIRight213"></td>
-                                <td width="87"><a href="#">离线下载</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="GIRight23">
-                    	<table width="299" class="GIRight2InfoTable">
-                        	<tr>
-                            	<td width="10"></td>
-                            	<td width="14" class="GIRight214"></td>
-                                <td width="40" class="GIRight2InTabTd"><a href="#">下载</a></td>
-                                <td width="10"></td>
-                                <td width="14" class="GIRight215"></td>
-                                <td width="40" class="GIRight2InTabTd"><a href="#">删除</a></td>
-                                <td width="10"></td>
-                            	<td width="14" class="GIRight216"></td>
-                                <td width="40" class="GIRight2InTabTd"><a href="#">分享</a></td>
-                                <td width="10"></td>
-                                <td width="33"><a href="#">更多</a></td>
-                                <td width="14" class="GIRight217"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="GIRight24">
-                    	<table>
-                        	<tr>
-                            	<td><input type="text" class="input" /></td>
-                                <td><a href="#"><img src="../../../eduis/images/fd.png" /></a></td>
-                            </tr>
-                        </table>
-          			</div>
-                </div>
-              </div>
-              
-		</div>
-		-->
 		<div class='frame-right'>
 			<div class="frame-right-main">
 				<div class="tools">
@@ -187,8 +133,10 @@
 			</div>
 		</div><!-- / frame-right end-->
 	</div><!-- / frame-main end-->
+<script src="/circleinfo/js/lib/seajs/sea.js"></script>
 <script src="./circlestatic/js/lib/artDialog/jquery-artDialog.js?skin=default" type="text/javascript"></script>
 <script>
+
 function place_circle_list (_data) {
         var _html = "";
         if (_data.code) {
@@ -245,5 +193,13 @@ $(document).ready(function(){
 	$("#workmanage").click(function(){
 		$(".circleWork").toggle();
 	});	
+	
+	$("body").click(function(){
+		$(".menu-topbar_user").css('display') == 'none' ? '' : $(".menu-topbar_user").hide();
+	});	
+	$("#topbar_user").click(function(){
+		$(".menu-topbar_user").css('display') == 'none' ? $(".menu-topbar_user").show() : $(".menu-topbar_user").hide();
+		return false;
+	});		
 });
 </script>

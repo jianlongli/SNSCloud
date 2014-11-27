@@ -116,8 +116,20 @@
 <script type="text/javascript">
 	
 	$(function(){
+
+		var str = window.location.href;		
+		var strs = str.split("#");
+		var _action = strs[1];
+                $(".tagMenu li a").removeClass("dijxt");
+		
+		if (_action) {
+			$('.tagMenu li a[data="' + _action + '"]').addClass('dijxt');
+		}
+
 		$('.init_loading').fadeOut(450).addClass('pop_fadeout');
-		$.system._init('personal');
+		//$.system._init('personal');
+		$.system._init( _action );
+
 		$(".tagMenu li a ").live('click',function(){
 			$(".tagMenu li a").removeClass("dijxt");
 			$(this).addClass("dijxt");
