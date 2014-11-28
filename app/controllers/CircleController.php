@@ -1503,7 +1503,15 @@ class CircleController extends ControllerBase
 					$relation->status = 0;
 					$relation->time = time();
 					$relation->save();
-
+					
+					$categoryId = isset($_POST ['circle_category_id']) ? $_POST ['circle_category_id'] : 0;
+					if ($categoryId) {
+						$circle_category_relation = new CCategory();
+						$circle_category_relation->categoryId = $categoryId;
+						$circle_category_relation->circleId = $circleId;
+						$circle_category_relation->save();
+					}
+					
 					$admin_id_list = isset($_POST ['qz_admin_id']) ? $_POST ['qz_admin_id'] : '';
 					if ($admin_id_list) {
 						$admin_id_arr = explode(',', $admin_id_list);
@@ -1536,6 +1544,17 @@ class CircleController extends ControllerBase
 			echo 1;
 			die;
 		}
+		
+		$cateGory = Category::find ();
+		$goryList = array();
+		if ($cateGory) {
+			foreach ($cateGory as $value) {
+    			if (isset($value->name) && $value->name)
+    				$goryList [$value->Id] = $value->name;
+    		}
+		}
+		
+		$this->view->setVar('goryList', $goryList);
 		$this->view->setVar('userId', $userInfo ['userid']);
 		$this->view->setVar('userName', $userInfo ['username']);
     }

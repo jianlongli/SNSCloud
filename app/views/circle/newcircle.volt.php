@@ -66,6 +66,20 @@
         <div class="clear"></div>
      </div>
      
+     <?php if(isset($goryList)){?>
+	     <div class="Qx1">
+	        <div class="Qx11">分类：</div>
+	        <div class="Qx14">
+	        	<select style="width: 200px;" name="circle_category_id">
+	        		<?php foreach($goryList as $key=>$value) {?>
+	        			<option value="<?php echo $key;?>"><?php echo $value;?></option>
+	        		<?php }?>
+	        	</select>
+	        </div>
+	        <div class="clear"></div>
+	     </div>
+     <?php }?>
+     
      <div class="Qx1">
         <div class="Qx11">评论开关：</div>
         <div class="Qx14">
