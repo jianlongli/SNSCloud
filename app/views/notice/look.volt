@@ -6,7 +6,8 @@
 
  }
  </script>
-                 	<div class="fbtoz">{{notices.notice_title}}</div>
+<?php if($manage){ ?>
+                 <div class="fbtoz">{{notices.notice_title}}</div>
                     <div class="fbtoz">
                     	<ul>
                         	<li>接收人：<span>{% if notices.receive_people == 0%}圈子所有人{% else %} 指定人{% endif %}</span></li>
@@ -66,3 +67,26 @@
                      </div>
                      <div class="clear"></div>
                     </div>
+<?php }else{ ?>
+
+
+                 <div class="fbtoz">{{notices.notice_title}}</div>
+                    <div class="fbtoz">
+                    	<ul>
+                            <li>接收人：<span>{% if notices.receive_people == 0%}圈子所有人{% else %} 指定人{% endif %}</span></li>
+                            <li>是否回执：<span style="color:#F00;">{% if notices.back == 0%}否{% else %}是{% endif %}</span></li>
+                            <li>发布时间：<span>{{notices.add_time}}</span></li>
+                            <div class="clear"></div>
+                        </ul>
+                       
+                    </div>
+                    <div class="fbtoz"><hr /> </div>
+                    <div class="fbtoz">{{notices.content}}</div>
+                    <div class="fbtoz">{% if notices.notice_fujian !="no file"%}
+                    	<div class="Qx11">附件：<span><a href="../down?fujian={{notices.notice_fujian}}" style="text-decoration:none;">{{notices.fujian_name}}</a></span></div>
+                       
+                       {% endif %} <div class="clear"></div>
+                    </div>
+		</div>
+
+<?php } ?>

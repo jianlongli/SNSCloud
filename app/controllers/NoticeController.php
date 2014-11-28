@@ -31,16 +31,23 @@ class NoticeController extends ControllerBase
     	}
     	
     	$id = $this->request->get('id');
-		$this->view->setVar('circle_id',$id);
-    	// if($id!=''){
-    	// $id=5;//圈子ID
-    	// }
+	$this->view->setVar('circle_id',$id);
+	
         $user_id=$user['userid'];//发布通知人
-    	$this->view->setVar('circle_id',$id);
-    	Tag::setTitle($this->session->get('object_name').' | 通知');
-    	
-    	$notice =new Notices();
-    	$robots = $notice::find(array("circle_id='$id' and user_id='$user_id' and is_delete =0","order" => "notice_id desc"));
+	//是否圈主
+	$Manager = CircleMember::find("circle_id=$id and member_id=$user_id and type in(1,2) and status=0");	
+	$isManager = count($Manager);
+	$this->view->setVar('isManager',$isManager);	
+	$this->view->setVar('circle_id',$id);
+	Tag::setTitle($this->session->get('object_name').' | 通知');
+	$notice =new Notices();
+	if($isManager){	
+		$robots = $notice::find(array("circle_id='$id' and is_delete =0","order" => "notice_id desc"));
+	}else{
+		$sql = "SELECT Notices.notice_title as notice_title,Notices.notice_id notice_id, Notices.add_time add_time FROM Nmember LEFT JOIN Notices ON Notices.notice_id=Nmember.notice_id WHERE Nmember.member_id=$user_id";	
+		$robots  = $this->modelsManager->executeQuery ( $sql );
+	}
+	//$robots = $notice::find(array("circle_id='$id' and user_id='$user_id' and is_delete =0","order" => "notice_id desc"));
     	
     	$paginator =new Paginator(array(
     	"data"  => $robots,
@@ -78,68 +85,68 @@ class NoticeController extends ControllerBase
 	
     	date_default_timezone_set('Asia/Shanghai');	// 上海时区
 
-		$showName = date('Y-m-d')."_" . $notice_title;
-		$pdir = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName . '/';
-		mkdirs($pdir);
-		$createtime = time();
-		$cLocalfileManage = new GLocalfileManage();
-		$cLocalfileManage->userid = $user['userid'];
-		$cLocalfileManage->name = $showName;
-		$cLocalfileManage->tags = $showName;
-		$cLocalfileManage->size = 0;
-		$cLocalfileManage->type = 'folder';
-		$cLocalfileManage->local = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
-		$cLocalfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
-		$cLocalfileManage->status = 0;
-		$cLocalfileManage->modifytime = $createtime;
-		$cLocalfileManage->createtime = $createtime;
-		$cLocalfileManage->save();
+	$showName = date('Y-m-d')."_" . $notice_title;
+	$pdir = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName . '/';
+	mkdirs($pdir);
+	$createtime = time();
+	$cLocalfileManage = new GLocalfileManage();
+	$cLocalfileManage->userid = $user['userid'];
+	$cLocalfileManage->name = $showName;
+	$cLocalfileManage->tags = $showName;
+	$cLocalfileManage->size = 0;
+	$cLocalfileManage->type = 'folder';
+	$cLocalfileManage->local = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
+	$cLocalfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
+	$cLocalfileManage->status = 0;
+	$cLocalfileManage->modifytime = $createtime;
+	$cLocalfileManage->createtime = $createtime;
+	$cLocalfileManage->save();
 
-		$cCloudfileManage = new CCloudfileManage();
-		$cCloudfileManage->parenturl = DATA_BASIC_PATH . '/c_' . $circle_id . '/private/通知文件/';
-		$cCloudfileManage->name = $showName;
-		$cCloudfileManage->oldurl = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
-		$cCloudfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
-		$cCloudfileManage->fileid = $cLocalfileManage->readAttribute('fileid');
-		$cCloudfileManage->userid = $user ['userid'];
-		$cCloudfileManage->ext = '';
-		$cCloudfileManage->type = 'folder';
-		$cCloudfileManage->accesstimes = 1;
-		$cCloudfileManage->isencryption = 0;
-		$cCloudfileManage->isreadable = 1;
-		$cCloudfileManage->iswriteable = 1;
-		$cCloudfileManage->size = 0;
-		$cCloudfileManage->sizefriendly = '0 B';
-		$cCloudfileManage->status = 0;
-		$cCloudfileManage->lastaccesstime = $createtime;
-		$cCloudfileManage->modifytime = $createtime;
-		$cCloudfileManage->createtime = $createtime;
-		$cCloudfileManage->save();
+	$cCloudfileManage = new CCloudfileManage();
+	$cCloudfileManage->parenturl = DATA_BASIC_PATH . '/c_' . $circle_id . '/private/通知文件/';
+	$cCloudfileManage->name = $showName;
+	$cCloudfileManage->oldurl = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
+	$cCloudfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
+	$cCloudfileManage->fileid = $cLocalfileManage->readAttribute('fileid');
+	$cCloudfileManage->userid = $user ['userid'];
+	$cCloudfileManage->ext = '';
+	$cCloudfileManage->type = 'folder';
+	$cCloudfileManage->accesstimes = 1;
+	$cCloudfileManage->isencryption = 0;
+	$cCloudfileManage->isreadable = 1;
+	$cCloudfileManage->iswriteable = 1;
+	$cCloudfileManage->size = 0;
+	$cCloudfileManage->sizefriendly = '0 B';
+	$cCloudfileManage->status = 0;
+	$cCloudfileManage->lastaccesstime = $createtime;
+	$cCloudfileManage->modifytime = $createtime;
+	$cCloudfileManage->createtime = $createtime;
+	$cCloudfileManage->save();
 	
-    	if ($request->hasFiles() == true) {
-			foreach ($request->getUploadedFiles("notice_fujian") as $file){
-				$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), DATA_BASIC_PATH.'/c_'.$circle_id.'/private/通知文件/' . $showName . '/');
-				//$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), $pdir);
-				$fujian =$pdir.$file->getName();
-				// $fujian =$this->upfile->upload_files(UPLOAD_FILE,$file);
-				$fujianname=$file->getName();
-    		}
-    		
-    	}else{
-    		$fujian="no file";
-    		$fujianname="no file";
-    	}
+	if ($request->hasFiles() == true) {
+		foreach ($request->getUploadedFiles("notice_fujian") as $file){
+			$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), DATA_BASIC_PATH.'/c_'.$circle_id.'/private/通知文件/' . $showName . '/');
+			//$return_data=$this->file->_circleupload($file->getName(), $file->getTempName(),$file->getSize(),$pdir.$file->getName(), $pdir);
+			$fujian =$pdir.$file->getName();
+			// $fujian =$this->upfile->upload_files(UPLOAD_FILE,$file);
+			$fujianname=$file->getName();
+		}
+
+	}else{
+		$fujian="no file";
+		$fujianname="no file";
+	}
     	//插入到通知数据库中
     	    	 
     	$notice = new Notices();
     	$notice->circle_id=$circle_id;
-		$notice->user_id=$user['userid'];
-		$notice->notice_title=$notice_title;
-		$notice->receive_people=$receive;
-		$notice->back=$back;
-		$notice->content=$content;
-		$notice->notice_fujian=$fujian;
-		$notice->fujian_name = $fujianname;		
+	$notice->user_id=$user['userid'];
+	$notice->notice_title=$notice_title;
+	$notice->receive_people=$receive;
+	$notice->back=$back;
+	$notice->content=$content;
+	$notice->notice_fujian=$fujian;
+	$notice->fujian_name = $fujianname;		
 
     	$notice->add_time=date("Y-m-d H:i:s");
     	$notice->is_delete=0;
@@ -159,10 +166,8 @@ class NoticeController extends ControllerBase
     				$nmember->back=$back;
     				$nmember->isread=0;
     				$nmember->read_time="0000-00-00 00:00:00";
-    				
     				if($nmember->save() ==false){
     					foreach($nmember->getMessages() as $message){
-    						
     						$this->flash->error('<span style="color:#F00">'.(string) $message.'</span>');
     					 }
     				}
@@ -172,7 +177,7 @@ class NoticeController extends ControllerBase
     		}else{
     			
     			// $receive_people = $request->getPost("receive_people");
-				$receive_people = $request->getPost("hdreceiveid");
+			$receive_people = $request->getPost("hdreceiveid");
     			$arr=explode(",",$receive_people);
     			foreach($arr as $u){
 					$str =explode("*", $u);
@@ -387,7 +392,7 @@ class NoticeController extends ControllerBase
 		if (!$user) {
 			return $this->forward('session/index');
 		}
-		
+	$isManager = $this->request->get('manage');	
 		$notices =Notices::findFirst($id);
 		$robots = Nmember::find(array("notice_id='$id'"));
     	$page =$this->request->get('page');
@@ -404,6 +409,7 @@ class NoticeController extends ControllerBase
     	//$page = $paginator->getPaginate();
     	//$this->view->setVar("page", $page);
     	//同下
+	$this->view->setVar('manage',$isManager);
     	$this->view->setVar("notice_id", $id);
     	$this->view->setVar("notices",$notices);
     	$this->view->page = $paginator->getPaginate();

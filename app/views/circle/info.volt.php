@@ -152,6 +152,7 @@
 								<a href="javascript:;" id="discuss_begin_button" data-id="<?php echo $circleId;?>" class="btnF discuss">发起讨论</a>
 								<a class="btnF circlemanage"  href="/circlemanage?id=<?php echo $circleId;?>" id="circleManage">圈子管理</a>
 							<?php }else{ ?>
+								<a href="#" class="btnF sendNotice">发布通知</a>
 								<a class="btnF introcircle"  href="/info?id=<?php echo $circleId;?>">了解圈子</a>
 								<a class="btnF workmanage"  id="myzuoye" data-circleid="<?php echo $circleId;?>" href="javascript:;" >作业管理</a>
 							<?php } ?>

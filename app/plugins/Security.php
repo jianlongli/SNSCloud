@@ -48,7 +48,7 @@ class Security extends Plugin
 				'circlemanage' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
 				'info' => array('index','circleinfo','member','experts','info','circleupdate','membermanage'),
 				'topic' => array('index'),
-				'notice' => array('index', 'send','received'),
+				'notice' => array('index', 'send','received','look'),
 			);
 			
 			foreach ($privateResources as $resource => $actions) {

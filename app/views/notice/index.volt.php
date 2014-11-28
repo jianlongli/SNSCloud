@@ -8,7 +8,7 @@
 <script language="javascript">
 	$(function(){
 		$("#viewNotice").live('click' , function(){
-			art.dialog.open('/notice/look/'+ $(this).data('id') , {
+			art.dialog.open('/notice/look/'+ $(this).data('id') + '?manage=' + $(this).data('manage') , {
                 fixed : true,
                 title : '查看通知',
                 lock : true,
@@ -46,6 +46,7 @@
 	$.alertUrl(url, '选择接收人', 610, 500);
 }
 </script>
+<?php if($isManager){ ?>
 <?php echo $this->tag->form(array('notice/send', 'id' => 'noticeForm', 'enctype' => 'multipart/form-data')); ?>	                
 	<input type="hidden" name="id" value="<?php echo $circle_id;?>" />
 	<div class="Qx1">
@@ -127,7 +128,7 @@
 	                <td><?php echo $isback;?></td>
 	                <td><?php echo $product->add_time;?></td>
 	                <td>   
-	                	<a href="javascript:;" id="viewNotice" data-id="<?php echo $product->notice_id;?>">查看通知</a>
+	                	<a href="javascript:;" id="viewNotice" data-id="<?php echo $product->notice_id;?>" data-manage="<?php echo $isManager;?>">查看通知</a>
 	                	<a href="javascript:;" id="editNotice" data-id="<?php echo $product->notice_id;?>">修改通知</a>
 	                	<a href="#">删除</a>
                     </td>
@@ -138,6 +139,30 @@
 	<div class="clear"></div>
 	</div>
 	</form>
+<?php }else{ ?>
+
+    <div class="Qx1">
+		<table width="800" class="tztable">
+	       <tr class="tabletr">
+	            <td>通知名称</td>
+	            <td width="200">发布时间</td>
+	            <td width="150">操作</td>
+	        </tr>   
+	                               
+	        <?php foreach($page->items as $product){ ?>                              
+		<tr>
+	                <td  style="text-align:left;"><a href="#" style=" color:#00F;"><?php echo $product->notice_title;?></a></td>
+	                <td><?php echo $product->add_time;?></td>
+			<td>
+	                	<a href="javascript:;" id="viewNotice" data-id="<?php echo $product->notice_id;?>" data-manage="<?php echo $isManager;?>">查看通知</a>
+			</td>
+                    
+                </tr>	
+            <?php } ?>
+		</table>
+	<div class="clear"></div>
+	</div>
+<?php } ?>
     
 	<div class="Qx1">
          <div class="Qx11"></div>
