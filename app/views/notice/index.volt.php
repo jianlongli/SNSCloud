@@ -8,6 +8,11 @@
 <script language="javascript">
 	$(function(){
 		$("#viewNotice").live('click' , function(){
+			$.ajax({
+				url : '/notice/read?id='+$(this).data('id'),
+				success : function(data){
+				}
+			});	
 			art.dialog.open('/notice/look/'+ $(this).data('id') + '?manage=' + $(this).data('manage') , {
                 fixed : true,
                 title : '查看通知',
