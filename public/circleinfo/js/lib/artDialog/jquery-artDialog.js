@@ -1022,6 +1022,7 @@ artDialog._templates =
 +									'<div class="aui_content"></div>'
 +								'</td>'
 +							'</tr>'
++							'<tr><td colspan="2" align="right" style="padding-right: 20px;"><div onclick="$(\'.aui_close\').click();" class="webuploader-pick" style="background: rgb(204, 28, 28);">完成</div></td></tr>'
 +							'<tr>'
 +								'<td colspan="2" class="aui_footer">'
 +									'<div class="aui_buttons"></div>'
