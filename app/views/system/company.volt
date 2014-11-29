@@ -34,14 +34,12 @@
 		
 		$('#addCompanyForm').bind('submit',function(){
 			$.common._ajax('addCompanyForm',addCompanyFormCallback);
-			//art.dialog.close();
 			return false;
 		});
 		
 	});
 	
 	function addCompanyFormCallback( _data ){
-		console.log(_data);
 		if(!_data.code){
 			$.common._showMsg ('message', _data.data);
 		}else{

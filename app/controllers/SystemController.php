@@ -414,7 +414,7 @@ class SystemController extends ControllerBase
 						$this->common->show_json($message, false);
 					}
 				}
-				$this->common->show_json('Update success!');
+				$this->common->show_json('更新成功');
 			}
 			
 			$id = $request->get('id');
@@ -446,7 +446,7 @@ class SystemController extends ControllerBase
 						}
 					}
 				}
-				$this->common->show_json('Delete company successful!');
+				$this->common->show_json('删除成功');
 			}
 		} elseif ($option == 'add') {
 			
@@ -455,9 +455,12 @@ class SystemController extends ControllerBase
 				$phone = $request->getPost('phone');
 				$createtime = time();
 				if(empty($name))
-					$this->common->show_json('name is empty !',false);
+					$this->common->show_json('单位名称不能为空',false);
 				if(empty($phone))
-					$this->common->show_json('phone is empay',false);
+					$this->common->show_json('电话不能为空',false);
+
+				if(strlen($name) > 10 )
+					$this->common->show_json('单位名称必须小于10个字',false);
 				
 				$Company = new Company();
 				$Company-> name = $name;
@@ -467,10 +470,10 @@ class SystemController extends ControllerBase
 				
 				if ($Company->save() == false) {
 					foreach ($Company->getMessages() as $message) {
-						$this->common->show_json('Error : '.$message,false);
+						$this->common->show_json(''.$message,false);
 					}
 				}
-				$this->common->show_json('Add success');
+				$this->common->show_json('添加成功');
 			}
 			
 		} else {
