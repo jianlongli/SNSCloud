@@ -1260,7 +1260,6 @@ class CircleController extends ControllerBase
 	 * 上传,html5拖拽  flash 多文件
 	 */
 	public function fileUploadAction(){
-		ini_set('memory_limit', '100M');
 		$save_path = $this->request->get('path');
 		$fullPath = $this->request->get('fullPath');
 		if (empty($fullPath)) {

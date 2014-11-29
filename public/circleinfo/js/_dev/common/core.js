@@ -568,9 +568,8 @@ define(function(require, exports) {
 				threads:3,      //最大同时上传线程
 				fileSizeLimit:G.upload_max,
 			    accept: {
-			        title: 'Accept',
-			        extensions: 'mp3,wma,wav,mid,aac,ogg,oga,midi,ram,ac3,aif,aiff,m3a,m4a,m4b,mka,mp1,mx3,mp2,avi,flv,f4v,wmv,3gp,rmvb,mp4,rm,rmvb,flv,mkv,wmv,asf,avi,aiff,mp4,divx,dv,m4v,mov,mpeg,vob,mpg,mpv,ogm,ogv,qt,jpg,jpeg,png,bmp,gif,ico,tif,tiff,dib,rle,html,htm,js,css,less,scss,sass,py,php,rb,erl,lua,pl,c,cpp,m,h,java,jsp,cs,asp,sql,as,go,lsp,yml,json,tpl,xml,reg,doc,docx,docm,xls,xlsx,xlsb,xlsm,ppt,pptx,pptm,txt,ini,inc,inf,conf,oexe,md,htaccess,csv,log,asc,tsv,pdf,bin,zip,swf,gzip,rar,arj,tar,gz,cab,tbz,tbz2,lzh,uue,bz2,ace,rtf,odp,odt,pages,class,psd,ttf',
-			        mimeTypes: 'image/*,audio/*,video/*,application/*'
+			        extensions: '*',
+			        mimeTypes: 'image/*,audio/*,video/*,application/msword,application/vnd.ms-excel,application/zip,application/x-compress,x-world/x-vrml,application/vnd.ms-works,application/x-mswrite,application/x-msmetafile,audio/x-wav,text/x-vcard,text/iuls,application/x-troff,application/x-tar,application/x-tcl,application/postscript,application/vnd.ms-powerpoint,application/vnd.ms-powerpoint,application/pdf,text/html,application/x-gzip,text/css,'
 			    },
 				resize: false
 			});

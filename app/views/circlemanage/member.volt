@@ -1,6 +1,6 @@
 <table class="circlemembertable1">
 	<tr>
-		<td class="tdf">教育即测试圈</td>
+		<td class="tdf">姓名</td>
 		<td>
 			<input type="text" class="inputText" id="keyWord" value="<?php echo $page->key; ?>" />
 			<input type="hidden" class="inputText" id="keyWordH" value="<?php echo $page->key; ?>" />
