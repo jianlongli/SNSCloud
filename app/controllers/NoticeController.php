@@ -61,6 +61,10 @@ class NoticeController extends ControllerBase
 		$this->view->page = $paginator->getPaginate();
 
 	}
+	
+	public function checkOnly () {
+		
+	}
 
 	/**
 	 * 发送新通知
@@ -88,40 +92,6 @@ class NoticeController extends ControllerBase
 		$showName = date('Y-m-d')."_" . $notice_title;
 		$pdir = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName . '/';
 		mkdirs($pdir);
-		$createtime = time();
-		$cLocalfileManage = new GLocalfileManage();
-		$cLocalfileManage->userid = $user['userid'];
-		$cLocalfileManage->name = $showName;
-		$cLocalfileManage->tags = $showName;
-		$cLocalfileManage->size = 0;
-		$cLocalfileManage->type = 'folder';
-		$cLocalfileManage->local = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
-		$cLocalfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
-		$cLocalfileManage->status = 0;
-		$cLocalfileManage->modifytime = $createtime;
-		$cLocalfileManage->createtime = $createtime;
-		$cLocalfileManage->save();
-
-		$cCloudfileManage = new CCloudfileManage();
-		$cCloudfileManage->parenturl = DATA_BASIC_PATH . '/c_' . $circle_id . '/private/通知文件/';
-		$cCloudfileManage->name = $showName;
-		$cCloudfileManage->oldurl = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
-		$cCloudfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
-		$cCloudfileManage->fileid = $cLocalfileManage->readAttribute('fileid');
-		$cCloudfileManage->userid = $user ['userid'];
-		$cCloudfileManage->ext = '';
-		$cCloudfileManage->type = 'folder';
-		$cCloudfileManage->accesstimes = 1;
-		$cCloudfileManage->isencryption = 0;
-		$cCloudfileManage->isreadable = 1;
-		$cCloudfileManage->iswriteable = 1;
-		$cCloudfileManage->size = 0;
-		$cCloudfileManage->sizefriendly = '0 B';
-		$cCloudfileManage->status = 0;
-		$cCloudfileManage->lastaccesstime = $createtime;
-		$cCloudfileManage->modifytime = $createtime;
-		$cCloudfileManage->createtime = $createtime;
-		$cCloudfileManage->save();
 
 		if ($request->hasFiles() == true) {
 			foreach ($request->getUploadedFiles("notice_fujian") as $file){
@@ -137,7 +107,6 @@ class NoticeController extends ControllerBase
 			$fujianname="no file";
 		}
 		//插入到通知数据库中
-
 		$notice = new Notices();
 		$notice->circle_id=$circle_id;
 		$notice->user_id=$user['userid'];
@@ -154,7 +123,44 @@ class NoticeController extends ControllerBase
 			foreach ($notice->getMessages() as $message) {
 				$this->flash->error('<span style="color:#F00">'.(string) $message.'</span>');
 			}
+			die ();
 		}else{
+			//创建文件已经文件夹
+			$createtime = time();
+			$cLocalfileManage = new GLocalfileManage();
+			$cLocalfileManage->userid = $user['userid'];
+			$cLocalfileManage->name = $showName;
+			$cLocalfileManage->tags = $showName;
+			$cLocalfileManage->size = 0;
+			$cLocalfileManage->type = 'folder';
+			$cLocalfileManage->local = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
+			$cLocalfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $showName;
+			$cLocalfileManage->status = 0;
+			$cLocalfileManage->modifytime = $createtime;
+			$cLocalfileManage->createtime = $createtime;
+			$cLocalfileManage->save();
+	
+			$cCloudfileManage = new CCloudfileManage();
+			$cCloudfileManage->parenturl = DATA_BASIC_PATH . '/c_' . $circle_id . '/private/通知文件/';
+			$cCloudfileManage->name = $showName;
+			$cCloudfileManage->oldurl = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
+			$cCloudfileManage->url = DATA_BASIC_PATH.'/c_' . $circle_id . '/private/通知文件/' . $createtime . '/';
+			$cCloudfileManage->fileid = $cLocalfileManage->readAttribute('fileid');
+			$cCloudfileManage->userid = $user ['userid'];
+			$cCloudfileManage->ext = '';
+			$cCloudfileManage->type = 'folder';
+			$cCloudfileManage->accesstimes = 1;
+			$cCloudfileManage->isencryption = 0;
+			$cCloudfileManage->isreadable = 1;
+			$cCloudfileManage->iswriteable = 1;
+			$cCloudfileManage->size = 0;
+			$cCloudfileManage->sizefriendly = '0 B';
+			$cCloudfileManage->status = 0;
+			$cCloudfileManage->lastaccesstime = $createtime;
+			$cCloudfileManage->modifytime = $createtime;
+			$cCloudfileManage->createtime = $createtime;
+			$cCloudfileManage->save();
+			
 			//如果插入成功 判断是群接收还是指定人 在插入到另一张表里
 			if($receive==0){
 				$mems = Mcircle::find(array("circle_id = '$circle_id' and status=0"));
@@ -173,7 +179,7 @@ class NoticeController extends ControllerBase
 					}
 				}
 				$this->flash->success("发送成功");
-				return $this->forward("notice/index");
+				return $this->forward("/notice/index");
 			}else{
 
 				// $receive_people = $request->getPost("receive_people");
@@ -200,14 +206,9 @@ class NoticeController extends ControllerBase
 				}
 				$this->flash->success("发送成功");
 
-				return $this->forward("notice/index");
-
+				return $this->forward("/notice/index");
 			}
-
-
 		}
-
-
 	}
 	/**
 	 * 修改通知
