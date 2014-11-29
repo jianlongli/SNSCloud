@@ -59,15 +59,17 @@
 					<?php $authInfo = $this->session->get('auth');?>
 					<?php if ($authInfo != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $authInfo['username'];?><b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><?php echo $authInfo['username'];?>您好！欢迎您登陆教育既<i class="icon-user"></i><b class="caret"></b></a>
 					<input type="hidden" value="<?php echo $authInfo['roleids'];?>" id='roleid'/> 
-					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
+					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user" style="left:65px;">
 						<li><a href="/system#personal">个人信息</a></li>
 						<li><a href="/system#invite">圈子邀请(3)</a></li>
+						<?php if($authInfo['roleids'] == 1){ ?>
 						<li><a href="/system#member">用户管理</a></li>
 						<li><a href="/system#company">单位管理</a></li>
 						<li><a href="/system#circle">圈子审批</a></li>
 						<li><a href="/system#setting">系统设置</a></li>
+						<?php } ?>
 						<li><a href="/system#log">系统日志</a></li>
 						<li><a href="/session/end">退出</a></li>
 					</ul>		
@@ -86,12 +88,15 @@
                     <ul class="tagMenu">
                         <li><a href="#personal" data="personal" class="dijxt" >个人信息</a></li>
                         <li><a href="#invite" data="invite">圈子邀请</a></li>
+			<?php if($authInfo['roleids'] == 1){ ?>
+			
                         <li><a href="#member" data="member">用户管理</a></li>
                         <li><a href="#company" data="company" >单位管理</a></li>
                         <li class="dn"><a href="#customer" data="customer" >区域管理</a></li>
                         <li><a href="#circle" data="circle" >圈子管理</a></li>
                         <li><a href="#setting" data="setting" >系统设置</a></li>
                         <li><a href="#log" data="log" >系统日志</a></li>
+			<?php } ?>
                     </ul>
                 </div>
                 <div class="XTglInfodiv">
