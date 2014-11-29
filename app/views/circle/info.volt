@@ -77,7 +77,7 @@
 						<li><a href="/system#circle">圈子审批</a></li>
 						<li><a href="/system#setting">系统设置</a></li>
 						<li><a href="/system#log">系统日志</a></li>
-						<li><a href="javascirpt:;">退出</a></li>
+						<li><a href="/session/end">退出</a></li>
 					</ul>		
 					<?php } ?>
 				</div>
