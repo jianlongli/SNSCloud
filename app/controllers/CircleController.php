@@ -57,7 +57,9 @@ class CircleController extends ControllerBase
 		}
 		 $this->view->setVar('worklist',$worklist);
 		 //我未交作业总数
-		$mywork_all_num = WorkCommit::count("userid=".$user['userid']." and ccloudid IS NULL");
+		 $sqls1 = "SELECT count(Work.workid) as num  FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." and WorkCommit.ccloudid IS NULL and Work.endtime>unix_timestamp(now())";
+		$mywork_all_ncount =  $this->modelsManager->executeQuery ( $sqls1 );
+		$mywork_all_num =$mywork_all_ncount[0][num];
 		 $this->view->setVar('mywork_all_num',$mywork_all_num);
 		
 	}
