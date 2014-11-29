@@ -28,5 +28,16 @@ class Notices extends Phalcon\Mvc\Model
         $this->belongsTo("circle_id","Mcircle","circle_id");
 	}
 	
+	
+	public function validation() {
+        $this->validate(new UniquenessValidator(array(
+        	'field' => array( 'notice_title' ),
+            'message' => '通知名称已存在，请重新输入'
+        )));
+        
+        if ($this->validationHasFailed() == true) {
+            return false;
+        }
+    }
 
 }
