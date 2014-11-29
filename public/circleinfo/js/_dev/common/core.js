@@ -567,8 +567,6 @@ define(function(require, exports) {
 				dnd:'body',  	//拖拽
 				threads:3,      //最大同时上传线程
 				fileSizeLimit:G.upload_max,
-				
-				//只允许选择图片文件。
 			    accept: {
 			        title: 'Accept',
 			        extensions: 'mp3,wma,wav,mid,aac,ogg,oga,midi,ram,ac3,aif,aiff,m3a,m4a,m4b,mka,mp1,mx3,mp2,avi,flv,f4v,wmv,3gp,rmvb,mp4,rm,rmvb,flv,mkv,wmv,asf,avi,aiff,mp4,divx,dv,m4v,mov,mpeg,vob,mpg,mpv,ogm,ogv,qt,jpg,jpeg,png,bmp,gif,ico,tif,tiff,dib,rle,html,htm,js,css,less,scss,sass,py,php,rb,erl,lua,pl,c,cpp,m,h,java,jsp,cs,asp,sql,as,go,lsp,yml,json,tpl,xml,reg,doc,docx,docm,xls,xlsx,xlsb,xlsm,ppt,pptx,pptm,txt,ini,inc,inf,conf,oexe,md,htaccess,csv,log,asc,tsv,pdf,bin,zip,swf,gzip,rar,arj,tar,gz,cab,tbz,tbz2,lzh,uue,bz2,ace,rtf,odp,odt,pages,class,psd,ttf',
