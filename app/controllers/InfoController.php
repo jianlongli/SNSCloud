@@ -18,6 +18,9 @@ class InfoController extends ControllerBase
 		if (!$authInfo) {
 			return $this->forward('session/index');
 		}
+                $this -> userid = $authInfo['userid'];
+                $this -> username = $authInfo['username'];
+                $this -> roleids = $authInfo['roleids'];
 		
 		$page = $this->request->get('page');
 		$this -> currentPage = isset($page) && !empty($page) ? $page : $this-> currentPage;
@@ -28,8 +31,12 @@ class InfoController extends ControllerBase
 	public function indexAction(){
 		$request = $this->request;
 		$circleId = $request->get('id');
-		
-                $circleList = Circle::find();
+
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+
+		$this->view->setVar('roleids',$authInfo['roleids']);
+                $this->view->setVar('circleList',$circleList);
                 $this->view->setVar('circleList',$circleList);
 
 		$this->view->setTemplateAfter('topbar');   
