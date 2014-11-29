@@ -47,6 +47,12 @@ class Users extends Phalcon\Mvc\Model
         )));
         $this->validate(new UniquenessValidator(array(
             'field' => 'username',
+            'message' => '抱歉，用户名已被注册'
+        )));
+					
+					
+        $this->validate(new UniquenessValidator(array(
+            'field' => 'username',
             'message' => '抱歉，您的用户名已被注册'
         )));
         if ($this->validationHasFailed() == true) {

@@ -187,9 +187,23 @@ class SystemController extends ControllerBase
 				
                 if(!empty($password) || !empty($repassword) ){
                 	if ($password != $repassword)
-                    	$this->common->show_json('The passwords entered are not the same. Please re-enter them',false );
-				    $passwordFlag = true;	
+                    		$this->common->show_json('确认密码和密码不相同',false );
+			$passwordFlag = true;	
+
+			if(strlen($password) < 3 || strlen($password) > 20)
+				$this->common->show_json("密码长度3~20 个字符",false );
                 }
+
+		if(empty($role_id)){
+			$this->common->show_json('请选择角色',false);
+		}
+
+		if($name=='')
+			$this->common->show_json("真实姓名不能为空",false);
+			
+		if(strlen($name) >20)
+			$this->common->show_json("真实姓名不能超过20 个字符",false);
+			
 				
 				$userDetail = Users::findFirst("userid='$userid'");
 
@@ -212,7 +226,7 @@ class SystemController extends ControllerBase
 
 				if ($UserModel->update() == false) {
 					foreach ($UserModel->getMessages() as $message) {
-						$this->common->show_json($message, false);
+						$this->common->show_json(' '.$message, false);
 					}
 				}
 				
@@ -302,16 +316,28 @@ class SystemController extends ControllerBase
 				$name = $request->getPost('name');
 				$cityid = $request->getPost('company');
 		
-				if(empty($role_id)){
-					$this->common->show_json('Please choose role !',false);
-				}
-		
+				if(empty($username))
+					$this->common->show_json('用户名不能为空',false);
+				
 				if(!empty($password) || !empty($repassword) ){
 					if ($password != $repassword)
-						$this->common->show_json('The passwords entered are not the same. Please re-enter them',false );
+						$this->common->show_json('密码和确认密码不相同',false );
 				}else {
-					$this->common->show_json("Password or repassword can't empay ",false );
+					$this->common->show_json("密码或确认密码不能为空",false );
 				}
+				
+				if(strlen($password) < 3 || strlen($password) > 20)
+					$this->common->show_json("密码长度3~20 个字符",false );
+
+				if(empty($role_id)){
+					$this->common->show_json('请选择角色',false);
+				}
+
+				if($name=='')
+					$this->common->show_json("真实姓名不能为空",false);
+					
+				if(strlen($name) >20)
+					$this->common->show_json("真实姓名不能超过20 个字符",false);
 		
 				$Users = new Users();
 		
@@ -323,7 +349,7 @@ class SystemController extends ControllerBase
 		
 				if ($Users->save() == false) {
 					foreach ($Users->getMessages() as $message) {
-						$this->common->show_json('Error : '.$message,false);
+						$this->common->show_json(' '.$message,false);
 					}
 				}else{
 						
@@ -335,10 +361,10 @@ class SystemController extends ControllerBase
 					/*Insert data into UserRole*/
 					if($UserRole->save() == false){
 						foreach ($UserRole->getMessages() as $message){
-							$this->common->show_json('Error : '.$message,false);
+							$this->common->show_json(' '.$message,false);
 						}
 					}
-					$this->common->show_json('Add user successful');
+					$this->common->show_json('添加用户成功');
 				}
 				$this->common->show_json('this is test data',false);
 			}
