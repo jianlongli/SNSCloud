@@ -139,7 +139,7 @@
                     <td><?php echo date('Y-m-d',$item->time);?></td>
                     <td><?php echo $item->num;?></td>
                     <td>
-                    	<a href="#" class="editCompany" data-id="<?php echo $item->id;?>">编辑</a>
+                    	<a href="#" class="editCompany" data-id="<?php echo $item->id;?>">修改</a>
                     	<a href="#" class="Delopration"  data-id="<?php echo $item->id;?>">删除</a>
                     </td>
                 </tr>
@@ -149,7 +149,7 @@
         </div>
     </li>
     <li>
-    	<div class="xtulleft"><input type="button"  value="新增用户" class="XTOk companyManage" data="add" /></div>
+    	<div class="xtulleft"><input type="button"  value="新增" class="XTOk companyManage" data="add" /></div>
     	<div class="xtulleft"><input type="button"  value="删除" class="XTOk Delopration" /></div>
     	<?php if($page->total_pages > 1) { ?>
         <div class="xtulright">
