@@ -49,7 +49,7 @@ class CircleController extends ControllerBase
 		
 		//zz查询最新的一条作业
 		$user = $this->session->get('auth');
-		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,Work.created created ,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." and ccloudid IS NULL  order by WorkCommit.commitid limit 1";
+		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,Work.created created ,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." and ccloudid IS NULL and endtime>unix_timestamp(now()) order by WorkCommit.commitid limit 1";
 		$mywork_data =  $this->modelsManager->executeQuery ( $sqls );
 		//print_r($mywork_data);die;
 		foreach($mywork_data as $v){
