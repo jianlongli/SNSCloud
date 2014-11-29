@@ -14,7 +14,7 @@ define(function(require, exports, module) {
         TreeId:"folderList",        // 目录树对象
 
         pageApp     : "explorer",
-        treeAjaxURL : "index/treeList/explorer",//树目录请求
+        treeAjaxURL : "/index/treeList/explorer",//树目录请求
         AnimateTime:200             // 动画时间设定
     };
     Global = {
