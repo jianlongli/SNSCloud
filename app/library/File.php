@@ -1164,7 +1164,7 @@ class File extends Phalcon\Mvc\User\Component
 		$pdir = DATA_BASIC_PATH.'/c_'.$circleId.'/private/作业上传/';
 		//$dir=$pdir.$workid.'/';
 		$created=date("Y-m-d",$created); 
-		$dir=$pdir.$created."—提交微课程作业/";
+		$dir=$pdir.$created."-".$workid."—提交微课程作业/";
 		$createtime=time();
 		
 		
@@ -1172,8 +1172,8 @@ class File extends Phalcon\Mvc\User\Component
 				 
 		$gLocalfileManage = new GLocalfileManage();
 		$gLocalfileManage->userid = $user['userid'];
-		$gLocalfileManage->name = $created."—提交微课程作业";
-		$gLocalfileManage->tags = $created."—提交微课程作业";
+		$gLocalfileManage->name = $created."-".$workid."—提交微课程作业";
+		$gLocalfileManage->tags = $created."-".$workid."—提交微课程作业";
 		$gLocalfileManage->size = '0';
 		$gLocalfileManage->type = 'folder';
 		$gLocalfileManage->local = $dir;
@@ -1190,7 +1190,7 @@ class File extends Phalcon\Mvc\User\Component
 		
 		$CircleCloudfileManage = new CircleCloudfileManage();
 		$CircleCloudfileManage->parenturl = $pdir;
-		$CircleCloudfileManage->name = $created."—提交微课程作业";
+		$CircleCloudfileManage->name = $created."-".$workid."—提交微课程作业";
 		$CircleCloudfileManage->oldurl = $dir;
 		$CircleCloudfileManage->url = $dir;
 		$CircleCloudfileManage->fileid = $gLocalfileManage->readAttribute('fileid');
