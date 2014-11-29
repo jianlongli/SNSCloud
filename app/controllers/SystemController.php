@@ -375,9 +375,9 @@ class SystemController extends ControllerBase
 				
 			foreach($this->pageSizeArr as $key => $val){
 				$selected = $this->limit == $val ? 'selected="selected"' : '';
-				$pageSizeOption .= '<option value="'.$val.'" '.$selected.' data="/system/member?page=1&pageSize='.$val.'" >'.$val.'</option>';
+				$pageSizeOption .= '<option value="' . $val . '" ' . $selected . ' data="/system/member?page=1&pageSize=' . $val . '" >' . $val . '</option>';
 			}
-			$page ->  pageSizeOption = $pageSizeOption;
+			$page->pageSizeOption = $pageSizeOption;
 		
 			foreach($page->items as $key => $val){
 				$val->role = $this->commoncircle->get_role_by_userid($val->userid);

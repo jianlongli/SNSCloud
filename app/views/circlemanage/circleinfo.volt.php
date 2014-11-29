@@ -16,6 +16,18 @@
 	<tr>
 		<td align="right" class="tdf">圈子介绍:</td>
 		<td align="left" colspan="2"><textarea  rows="6" cols="60" name="desc" id="desc" ><?php echo $circleInfo['desc']; ?></textarea></td>
+	</tr>
+	<tr>
+		<td align="right" class="tdf">圈子分类:</td>
+		<td align="left">
+			<?php if($categoryList) {?>
+				<select name="cagegory">
+					<?php foreach($categoryList as $value){?>
+						<option value="<?php echo $value->Id;?>" <?php if ($circleInfo['categoryId'] == $value->Id){echo "selected";}?> ><?php echo $value->name;?></option>
+					<?php }?>
+				</select>
+			<?php }?>
+		</td>
 	</tr>	
 	<tr>
 		<td align="right" class="tdf">圈子LOGO:</td>
@@ -36,7 +48,7 @@
 		<td align="right" class="tdf">圈主:</td>
 		<input type="hidden" id="quanzhuId" name="quanzhuId" value="<?php echo $circleInfo['quanzhuId'];?>" />
 		<td align="left"><input class="inputText" id='quanzhunameid' name="quanzhuname" type='text' value="<?php echo $circleInfo['member2']; ?>"/></td>
-		<td class="dn"><a class="resetqz" id="choose_qz_quanzhu_button">重设圈主</a></td>
+		<td class="dn"><a class="resetqz" id="choose_qz_quanzhu_button">选择</a></td>
 	</tr>
 	<tr>
 		<td align="right" class="tdf">圈子管理员:</td>
@@ -44,7 +56,7 @@
 			<input type="text" class="inputText"  name="qz_admin" value="<?php echo $circleInfo['member1']; ?>" readonly />　　
             <input type='hidden' name='qz_admin_id' value="<?php echo $circleInfo['member1_id'];?>" />
 		</td>
-		<td><a class="resetqz" id='check_qz_admin_button' >重设管理员</a></td>
+		<td><a class="resetqz" id='check_qz_admin_button' >选择</a></td>
 	</tr>
 	<tr>
 		<td align="right" class="tdf">评论开关:</td>
@@ -65,7 +77,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3" align="left"><input type="submit" class="submitBtn"  id="submitBtn" value="确定"/></td>
+		<td colspan="3" align="left"><center><input type="submit" class="submitBtn"  id="submitBtn" value="确定"/></center></td>
 	</tr>
 </table>
 </form>
