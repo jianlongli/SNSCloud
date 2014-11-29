@@ -107,7 +107,7 @@
 						</div><!-- .circleContiner-left end -->
 
 						<div class="circleContiner-right pull-right">
-							<h3 id="workmanage">作业管理</h3>
+							<h3 id="workmanage" style="text-indent: 4.4em;"><div style="padding-top:10px; font-size:19px;"><?php echo $mywork_all_num; ?></div></h3>
 					
 							<div class="circleWork" style="display:none;">
 							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye' data-circleid="0">更多>></a><span></h4>
