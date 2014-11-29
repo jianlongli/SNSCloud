@@ -72,11 +72,13 @@
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user" style="left:65px;">
 						<li><a href="/system#personal">个人信息</a></li>
 						<li><a href="/system#invite">圈子邀请(3)</a></li>
+						<?php if($authInfo['roleids'] == 1){ ?>
 						<li><a href="/system#member">用户管理</a></li>
 						<li><a href="/system#company">单位管理</a></li>
 						<li><a href="/system#circle">圈子审批</a></li>
 						<li><a href="/system#setting">系统设置</a></li>
 						<li><a href="/system#log">系统日志</a></li>
+						<?php } ?>
 						<li><a href="/session/end">退出</a></li>
 					</ul>		
 					<?php } ?>
@@ -107,17 +109,23 @@
 						</div><!-- .circleContiner-left end -->
 
 						<div class="circleContiner-right pull-right">
-							<h3 id="workmanage">作业管理</h3>
-					
+							<h3 id="workmanage" style="text-indent: 4.4em;"><div style="padding-top:10px; font-size:19px;"><?php echo $mywork_all_num; ?></div></h3>
+						<?php if(!empty($worklist->workid)){?>
 							<div class="circleWork" style="display:none;">
 							<h4 style="margin-top:0px;">作业管理<span><a href="#" id='myzuoye' data-circleid="0">更多>></a><span></h4>
-								<p><?php echo $worklist->name; ?></p>	
+							
+								<p><?php echo $worklist->name; ?></p>
 								<ul>
 									<li>新作业<span onclick=" $.alertUrl('/work/addwork/?workid=<?php echo $worklist->workid; ?>', '　交作业', 730,450);" >交作业</span></li>
 									<li><?php echo date("Y-m-d",$worklist->created); ?></li>
 									<li>生效日期:<?php echo date("Y-m-d",$worklist->starttime); ?></li>
 									<li>失效日期:<?php echo date("Y-m-d",$worklist->endtime); ?></li>
 								</ul>
+							<?php }else{ ?>
+								<div class="circleWork" style="display:none;">
+							<h4 style="margin-top:0px;">作业管理<span><span></h4>
+								<p>您没有需要完成的作业</p>
+							<?php } ?>
 							</div>
 							<h4>圈子动态<span><a href="#">更多>></a><span></h4>
 							<div class="dynamic">
