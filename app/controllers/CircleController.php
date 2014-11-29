@@ -112,6 +112,14 @@ class CircleController extends ControllerBase
 
 		$this->common->show_json($list['folderlist'], true);
 	}
+	public function circleexistAction(){
+		$name = $this->request->getPost('name');	
+		$request = Circle::count("name='$name'");
+		if($request){
+			exit('exist');
+		}
+		exit('noexist');		
+	}
 
 	private function isParent($path) {
 

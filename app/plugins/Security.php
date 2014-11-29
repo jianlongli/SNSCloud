@@ -40,7 +40,7 @@ class Security extends Plugin
 				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
 				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
 				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'circle' => array('index', 'mkdir'),
+				'circle' => array('index', 'mkdir','circleexist'),
 				'invoices' => array('index', 'profile'),
 				'sysmanage' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex'),
 				'system' => array('index','personal','invite','company','member','customer','circle','setting','log','add','update','cindex','export'),

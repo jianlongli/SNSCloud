@@ -20,8 +20,12 @@ jQuery.circle = {
 				var _error_msg = '';
 				if (_name == '') {
 					_error_msg = '圈子名称不得为空';
+				} else if (_name.length>10){
+					_error_msg = '名称必须在10个字以内';
 				} else if (_desc == '') {
 					_error_msg = '圈子描述不得为空';
+				} else if(_desc.length>100){
+					_error_msg = '描述必须在100个字以内';
 				} else if (_logo == '') {
 					_error_msg = '请上传圈子LOGO';
 				} else if (_circle_admin == '') {
@@ -29,6 +33,17 @@ jQuery.circle = {
 				} else if (_circle_member == '') {
 					_error_msg = '请添加圈子成员';
 				}
+				$.ajax({
+					async : false,
+					type : 'POST',
+					url : '/circle/circleexist',
+					data : {name : _name},
+					success : function(data){
+						if(data == 'exist'){
+							_error_msg = '圈子名称已经存在';
+						}
+					}
+				});
 				if (_error_msg) {
 	        		this.iframe.contentWindow.$.common._showMsg ('error_div', _error_msg);
 	        	} else {

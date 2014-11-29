@@ -6,6 +6,7 @@
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/shipj.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/hover.js'); ?>
 <?php echo $this->tag->javascriptInclude('./circlestatic/js/_dev/src/explorer/circle.js'); ?>
+<?php echo $this->tag->javascriptInclude('./eduis/js/alertInfo.js'); ?>
 <?php echo $this->tag->javascriptInclude('./eduis/js/zz.js'); ?>
 
 	<div class="init_loading"><div><img src="<?php echo @$controllerName=='session' ? '../' : './'; ?>static/images/loading_simple.gif"/></div></div>
