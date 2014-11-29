@@ -27,12 +27,6 @@ class CirclemanageController extends ControllerBase
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
-                $circleList = $this->modelsManager->executeQuery ( $sql );
-
-		$this->view->setVar('roleids',$authInfo['roleids']);
-                $this->view->setVar('circleList',$circleList);
-
 		$page = $this->request->get('page');
 		$this -> currentPage = isset($page) && !empty($page) ? $page : $this-> currentPage;
 		$pageSize = $this->request->get('pageSize');
@@ -40,6 +34,14 @@ class CirclemanageController extends ControllerBase
 	}
 
 	public function indexAction(){
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+		$this->view->setVar('roleids',$this->roleids);
+                $this->view->setVar('circleList',$circleList);
+		
+		$phql = "SELECT Circle.name  FROM CircleMember LEFT JOIN Circle ON Circle.circleid=CircleMember.circle_id LEFT JOIN Users ON Users.userid=Circle.userid WHERE CircleMember.member_id='$this->userid' AND CircleMember.status=0";
+		$inviteCount = $this->modelsManager->executeQuery ( $phql );
+		$this->view->setVar('inviteCount',$inviteCount);
 		$request = $this->request;
 		$circleId = $request->get('id');
 		

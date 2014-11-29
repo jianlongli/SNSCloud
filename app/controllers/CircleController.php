@@ -28,16 +28,21 @@ class CircleController extends ControllerBase
 		$logList = Logs::find (' 1=1 order by createtime desc limit 10');
 		$this->view->setVar('logList', $logList);
 
-		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
-                $circleList = $this->modelsManager->executeQuery ( $sql );
-
-		$this->view->setVar('roleids',$authInfo['roleids']);
-                $this->view->setVar('circleList',$circleList);
 		
 	}
 
 	public function indexAction()
 	{
+
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+		$this->view->setVar('roleids',$this->roleids);
+                $this->view->setVar('circleList',$circleList);
+		
+		$phql = "SELECT Circle.name  FROM CircleMember LEFT JOIN Circle ON Circle.circleid=CircleMember.circle_id LEFT JOIN Users ON Users.userid=Circle.userid WHERE CircleMember.member_id='$this->userid' AND CircleMember.status=0";
+		$inviteCount = $this->modelsManager->executeQuery ( $phql );
+		$this->view->setVar('inviteCount',$inviteCount);
+		
 		$this->view->setTemplateAfter('topbar');	// 框架通用菜单
 
 		Tag::setTitle($this->session->get('object_name').' | 圈子');
@@ -1690,6 +1695,14 @@ class CircleController extends ControllerBase
 	}
 
 	public function infoAction ( $Id ) {
+		$sql = "SELECT Circle.name name,Circle.circleid circleid FROM Circle RIGHT JOIN CircleMember ON Circle.circleid=CircleMember.circle_id WHERE CircleMember.member_id='$this->userid'";
+                $circleList = $this->modelsManager->executeQuery ( $sql );
+		$this->view->setVar('roleids',$this->roleids);
+                $this->view->setVar('circleList',$circleList);
+		
+		$phql = "SELECT Circle.name  FROM CircleMember LEFT JOIN Circle ON Circle.circleid=CircleMember.circle_id LEFT JOIN Users ON Users.userid=Circle.userid WHERE CircleMember.member_id='$this->userid' AND CircleMember.status=0";
+		$inviteCount = $this->modelsManager->executeQuery ( $phql );
+		$this->view->setVar('inviteCount',$inviteCount);
 		$Id = $Id ? $Id : 0;
 		if ($Id) {
 			$this->session->set('cDiskPath', DATA_BASIC_PATH . '/c_' . $Id . '/private/');

@@ -99,7 +99,7 @@
 					           <span style='font-size: 14px; font-weight: bold; color: #FFF; padding-left: 10px;'>上传</span></div>
 					        </button>
 
-							<?php if ($authInfo['roleids']==1) {?>
+							<?php if ($authInfo['roleids'] == 1) {?>
 						        <button id='newfolder' class="btn btn-default" type="button" style='width: 113px; height: 20px; border-radius: 0px;'>
 						        	<img style='margin-top: -3px;' src='../../../eduis/images/xjw.png'>
 						        	<span style='font-size: 14px; font-weight: bold; padding-left: 10px;'>新建文件夹</span>
