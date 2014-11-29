@@ -66,9 +66,9 @@
 					<?php $authInfo = $this->session->get('auth');?>
 					<?php if ($authInfo != '') { ?>
 					<!-- ToDo:点击弹出菜单 -->
-					<a href="#" id='topbar_user' data-toggle="dropdown"><i class="icon-user"></i><?php echo $authInfo['username'];?><b class="caret"></b></a>
+					<a href="#" id='topbar_user' data-toggle="dropdown"><?php echo $authInfo['username'];?>您好！欢迎您登陆教育既<i class="icon-user"></i><b class="caret"></b></a>
 					<input type="hidden" value="<?php echo $authInfo['roleids'];?>" id='roleid'/> 
-					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user">
+					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user" style="left:65px;">
 						<li><a href="/system#personal">个人信息</a></li>
 						<li><a href="/system#invite">圈子邀请(3)</a></li>
 						<li><a href="/system#member">用户管理</a></li>

@@ -596,11 +596,13 @@ class NoticeController extends ControllerBase
 		$id = $this->request->get('id');
 		$user = $this->session->get('auth');
 		if (!$user) {
-			exit;
+			return; 
 		}
 		$user_id=$user['userid'];//发布通知人
 
 		$result = Nmember::findFirst("notice_id=$id and member_id=$user_id");
+		if($result->isread == 1)
+			return;
 		$notice_member_model = new Nmember();
 		$notice_member_model = $result;
 		$notice_member_model -> isread = 1;
