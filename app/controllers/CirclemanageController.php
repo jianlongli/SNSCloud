@@ -43,9 +43,6 @@ class CirclemanageController extends ControllerBase
 		$request = $this->request;
 		$circleId = $request->get('id');
 		
-                $circleList = Circle::find();
-                $this->view->setVar('circleList',$circleList);
-
 		$this->view->setTemplateAfter('topbar');   
 		$this->view->setVar("circleId", $circleId);
 	}

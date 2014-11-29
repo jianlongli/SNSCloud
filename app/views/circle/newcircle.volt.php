@@ -23,7 +23,7 @@
         	<div style="width: 60px;float: left;">
 				<div id='spanButtonPlaceHolder'></div>
 			</div>
-        	<input id="btnCancel" type="button" value="取消上传" onclick="swfu.cancelQueue();" disabled="disabled" style="font-size: 8pt; height: 29px;margin-left: 50px;" />
+        	<input id="btnCancel" type="hidden" value="取消上传" onclick="swfu.cancelQueue();" disabled="disabled" style="font-size: 8pt; height: 29px;margin-left: 50px;" />
 			<div class="fieldset flash" id="fsUploadProgress" style="display: none;"></div>
         	<input type="hidden" name="qz_logo" />
         	<div class="Qx12" style="margin-top: 10px;"><img id="logoImg" src="" width="150" height="150" /></div><br />
