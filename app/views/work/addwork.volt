@@ -27,6 +27,7 @@
       <div class="Qx11">提交截止：<span><?php echo date("Y-m-d H:i:s",$work->endtime); ?></span></div>
       <div class="clear"></div>
     </div>  
+	<?php if($type!='look') {?>
     <div class="fbtoz">
       <div class="Qx11">作业附件：
 <form action="addwork/?type=submit&workid=<?php echo $work->workid; ?>" method="post" enctype="multipart/form-data">
@@ -52,7 +53,8 @@
         <input type="submit" value="取消" class="Okbutq1" onMouseOver="this.className='UpOkbutq1'" onMouseOut="this.className='OffOkbutq1'" />
       <div class="clear"></div>
     </div>  
-</form>    
+</form>   
+<?php } ?> 
 </body>
 </html>
 <script type="text/javascript">
