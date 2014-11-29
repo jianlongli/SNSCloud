@@ -72,28 +72,78 @@ define(function(require, exports) {
 
 
     var _bindBody_explorer = function(){
-        $.contextMenu({
-            selector: Config.BodyContent,
-            zIndex:9999,
-            callback: function(key, options) {_menuBody(key, options);},
-            items: {
-                "refresh":{name:LNG.refresh,className:"refresh",icon:"refresh",accesskey: "e"},
-                "upload":{name:LNG.upload,className:"upload",icon:"upload",accesskey: "u"},
-                "past":{name:LNG.past,className:"past",icon:"paste",accesskey: "p"},
-                "sep1":"--------",
-                "newfolder":{name:LNG.newfolder,className:"newfolder",icon:"folder-close-alt",accesskey: "n"},
-                "newfile":{name:LNG.newfile,className:"newfile",icon:"file-alt",accesskey: "j"},
-                "newfileOther":{
-                    name:LNG.newothers,
-                    items:{
-                        "newfile_html":{name:"html "+LNG.file},
-                        "newfile_php":{name:"php "+LNG.file},
-                        "newfile_js":{name:"js "+LNG.file},
-                        "newfile_css":{name:"css "+LNG.file}
-                    }
-                }
-            }
-        });
+    	var _roleId = 0;
+        if ($('#roleid').size()) {
+        	_roleId = $('#roleid').val();
+        	if (_roleId == 1) {
+        		$.contextMenu({
+        			selector: Config.BodyContent,
+        			zIndex:9999,
+        			callback: function(key, options) {_menuBody(key, options);},
+        			items: {
+        				"refresh":{name:LNG.refresh,className:"refresh",icon:"refresh",accesskey: "e"},
+        				"upload":{name:LNG.upload,className:"upload",icon:"upload",accesskey: "u"},
+        				"past":{name:LNG.past,className:"past",icon:"paste",accesskey: "p"},
+        				"sep1":"--------",
+        				"newfolder":{name:LNG.newfolder,className:"newfolder",icon:"folder-close-alt",accesskey: "n"},
+        				"newfile":{name:LNG.newfile,className:"newfile",icon:"file-alt",accesskey: "j"},
+        				"newfileOther":{
+        					name:LNG.newothers,
+        					items:{
+        					"newfile_html":{name:"html "+LNG.file},
+        					"newfile_php":{name:"php "+LNG.file},
+        					"newfile_js":{name:"js "+LNG.file},
+        					"newfile_css":{name:"css "+LNG.file}
+        				}
+        				}
+        			}
+        		});
+        	} else {
+        		$.contextMenu({
+        			selector: Config.BodyContent,
+        			zIndex:9999,
+        			callback: function(key, options) {_menuBody(key, options);},
+        			items: {
+        				"refresh":{name:LNG.refresh,className:"refresh",icon:"refresh",accesskey: "e"},
+        				"upload":{name:LNG.upload,className:"upload",icon:"upload",accesskey: "u"},
+        				"past":{name:LNG.past,className:"past",icon:"paste",accesskey: "p"},
+        				"sep1":"--------",
+        				"newfileOther":{
+        					name:LNG.newothers,
+        					items:{
+        					"newfile_html":{name:"html "+LNG.file},
+        					"newfile_php":{name:"php "+LNG.file},
+        					"newfile_js":{name:"js "+LNG.file},
+        					"newfile_css":{name:"css "+LNG.file}
+        				}
+        				}
+        			}
+        		});
+        	}
+        } else {
+        	$.contextMenu({
+    			selector: Config.BodyContent,
+    			zIndex:9999,
+    			callback: function(key, options) {_menuBody(key, options);},
+    			items: {
+    				"refresh":{name:LNG.refresh,className:"refresh",icon:"refresh",accesskey: "e"},
+    				"upload":{name:LNG.upload,className:"upload",icon:"upload",accesskey: "u"},
+    				"past":{name:LNG.past,className:"past",icon:"paste",accesskey: "p"},
+    				"sep1":"--------",
+    				"newfolder":{name:LNG.newfolder,className:"newfolder",icon:"folder-close-alt",accesskey: "n"},
+    				"newfile":{name:LNG.newfile,className:"newfile",icon:"file-alt",accesskey: "j"},
+    				"newfileOther":{
+    					name:LNG.newothers,
+    					items:{
+    					"newfile_html":{name:"html "+LNG.file},
+    					"newfile_php":{name:"php "+LNG.file},
+    					"newfile_js":{name:"js "+LNG.file},
+    					"newfile_css":{name:"css "+LNG.file}
+    				}
+    				}
+    			}
+    		});
+        }
     }; 
     var _bindSystem = function(){
         $.contextMenu({
@@ -156,47 +206,127 @@ define(function(require, exports) {
     };
     var _bindFolder = function(){
         $('<i class="'+folderMenuSelector.substr(1)+'"></i>').appendTo('#rightMenu');
-        $.contextMenu({
-            zIndex:9999,
-            selector: folderMenuSelector,
-            className:folderMenuSelector,
-            callback: function(key, options) {_menuPath(key);},
-            items: {
-                "open":{name:LNG.open,className:"open",icon:"folder-open-alt",accesskey: "o"},
-                "sep1":"--------",
+        var _roleId = 0;
+        if ($('#roleid').size()) {
+        	_roleId = $('#roleid').val();
+        	if (_roleId == 1) {
+        		$.contextMenu({
+        			zIndex:9999,
+        			selector: folderMenuSelector,
+        			className:folderMenuSelector,
+        			callback: function(key, options) {_menuPath(key);},
+        			items: {
+        				"open":{name:LNG.open,className:"open",icon:"folder-open-alt",accesskey: "o"},
+        				"sep1":"--------",
 //                "copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
-                "cute":{name:LNG.cute,className:"cute",icon:"cut",accesskey: "k"},                
-                "remove":{name:LNG.remove,className:"remove",icon:"trash",accesskey: "d"},
-                "rname":{name:LNG.rename,className:"rname",icon:"pencil",accesskey: "r"},
-                "sep2":"--------",
-                "info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
-            }
-        });
+        				"cute":{name:LNG.cute,className:"cute",icon:"cut",accesskey: "k"},                
+        				"remove":{name:LNG.remove,className:"remove",icon:"trash",accesskey: "d"},
+        				"rname":{name:LNG.rename,className:"rname",icon:"pencil",accesskey: "r"},
+        				"sep2":"--------",
+        				"info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
+        			}
+        		});
+        	} else {
+        		$.contextMenu({
+        			zIndex:9999,
+        			selector: folderMenuSelector,
+        			className:folderMenuSelector,
+        			callback: function(key, options) {_menuPath(key);},
+        			items: {
+        				"open":{name:LNG.open,className:"open",icon:"folder-open-alt",accesskey: "o"},
+        				"sep1":"--------",
+//                "copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
+        				"info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
+        			}
+        		});
+        	}
+        } else {
+        	$.contextMenu({
+    			zIndex:9999,
+    			selector: folderMenuSelector,
+    			className:folderMenuSelector,
+    			callback: function(key, options) {_menuPath(key);},
+    			items: {
+    				"open":{name:LNG.open,className:"open",icon:"folder-open-alt",accesskey: "o"},
+    				"sep1":"--------",
+//            "copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
+    				"cute":{name:LNG.cute,className:"cute",icon:"cut",accesskey: "k"},                
+    				"remove":{name:LNG.remove,className:"remove",icon:"trash",accesskey: "d"},
+    				"rname":{name:LNG.rename,className:"rname",icon:"pencil",accesskey: "r"},
+    				"sep2":"--------",
+    				"info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
+    			}
+    		});
+        }
     };
     
     // 文件右键菜单
     var _bindFile = function(){
         $('<i class="'+fileMenuSelector.substr(1)+'"></i>').appendTo('#rightMenu');
-        $.contextMenu({
-            zIndex:9999,
-            selector: fileMenuSelector,
-            className:folderMenuSelector,
-            callback: function(key, options) {_menuPath(key);},
-            items: {
-                "open":{name:LNG.open,className:"open",icon:"external-link",accesskey: "o"},
-                "open_text":{name:LNG.edit,className:"open_text",icon:"edit",accesskey: "e"},
-                "sep1":"--------",
-                "copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
-                "cute":{name:LNG.cute,className:"cute",icon:"cut",accesskey: "k"},                
-                "remove":{name:LNG.remove,className:"remove",icon:"trash",accesskey: "d"},
-                "rname":{name:LNG.rename,className:"rname",icon:"pencil",accesskey: "r"},
-                "sep2":"--------",
+        var _roleId = 0;
+        if ($('#roleid').size()) {
+        	_roleId = $('#roleid').val();
+        	if (_roleId == 1) {
+        		$.contextMenu({
+        			zIndex:9999,
+        			selector: fileMenuSelector,
+        			className:folderMenuSelector,
+        			callback: function(key, options) {_menuPath(key);},
+        			items: {
+        				"open":{name:LNG.open,className:"open",icon:"external-link",accesskey: "o"},
+        				"open_text":{name:LNG.edit,className:"open_text",icon:"edit",accesskey: "e"},
+        				"sep1":"--------",
+        				"copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
+        				"cute":{name:LNG.cute,className:"cute",icon:"cut",accesskey: "k"},                
+        				"remove":{name:LNG.remove,className:"remove",icon:"trash",accesskey: "d"},
+        				"rname":{name:LNG.rename,className:"rname",icon:"pencil",accesskey: "r"},
+        				"sep2":"--------",
 //                "share":{name:LNG.share,className:"share",icon:"share",accesskey: "s"},
-                "down":{name:LNG.download,className:"down",icon:"download",accesskey: "x"},
-                "sep3":"--------",
-                "info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
-            }
-        });
+        				"down":{name:LNG.download,className:"down",icon:"download",accesskey: "x"},
+        				"sep3":"--------",
+        				"info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
+        			}
+        		});
+        	} else {
+        		$.contextMenu({
+        			zIndex:9999,
+        			selector: fileMenuSelector,
+        			className:folderMenuSelector,
+        			callback: function(key, options) {_menuPath(key);},
+        			items: {
+        				"open":{name:LNG.open,className:"open",icon:"external-link",accesskey: "o"},
+        				"open_text":{name:LNG.edit,className:"open_text",icon:"edit",accesskey: "e"},
+        				"sep1":"--------",
+        				"copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
+        				"sep2":"--------",
+        				"down":{name:LNG.download,className:"down",icon:"download",accesskey: "x"},
+        				"sep3":"--------",
+        				"info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
+        			}
+        		});
+        	}
+        } else {
+        	$.contextMenu({
+    			zIndex:9999,
+    			selector: fileMenuSelector,
+    			className:folderMenuSelector,
+    			callback: function(key, options) {_menuPath(key);},
+    			items: {
+    				"open":{name:LNG.open,className:"open",icon:"external-link",accesskey: "o"},
+    				"open_text":{name:LNG.edit,className:"open_text",icon:"edit",accesskey: "e"},
+    				"sep1":"--------",
+    				"copy":{name:LNG.copy,className:"copy",icon:"copy",accesskey: "c"},
+    				"cute":{name:LNG.cute,className:"cute",icon:"cut",accesskey: "k"},                
+    				"remove":{name:LNG.remove,className:"remove",icon:"trash",accesskey: "d"},
+    				"rname":{name:LNG.rename,className:"rname",icon:"pencil",accesskey: "r"},
+    				"sep2":"--------",
+//            "share":{name:LNG.share,className:"share",icon:"share",accesskey: "s"},
+    				"down":{name:LNG.download,className:"down",icon:"download",accesskey: "x"},
+    				"sep3":"--------",
+    				"info":{name:LNG.info,className:"info",icon:"info",accesskey: "i"}
+    			}
+    		});
+        }
     };
     var _bindApp = function(){
         $('<i class="'+selectAppSelector.substr(1)+'"></i>').appendTo('#rightMenu');
