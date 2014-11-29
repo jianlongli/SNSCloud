@@ -39,7 +39,7 @@ class InfoController extends ControllerBase
 		
 		$phql = "SELECT Circle.name  FROM CircleMember LEFT JOIN Circle ON Circle.circleid=CircleMember.circle_id LEFT JOIN Users ON Users.userid=Circle.userid WHERE CircleMember.member_id='$this->userid' AND CircleMember.status=0";
 		$inviteCount = $this->modelsManager->executeQuery ( $phql );
-		$this->view->setVar('inviteCount',$inviteCount);
+		$this->view->setVar('inviteCount',count($inviteCount));
 
 		$this->view->setTemplateAfter('topbar');   
 		$this->view->setVar("circleId", $circleId);

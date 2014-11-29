@@ -41,7 +41,7 @@ class CircleController extends ControllerBase
 		
 		$phql = "SELECT Circle.name  FROM CircleMember LEFT JOIN Circle ON Circle.circleid=CircleMember.circle_id LEFT JOIN Users ON Users.userid=Circle.userid WHERE CircleMember.member_id='$this->userid' AND CircleMember.status=0";
 		$inviteCount = $this->modelsManager->executeQuery ( $phql );
-		$this->view->setVar('inviteCount',$inviteCount);
+		$this->view->setVar('inviteCount',count($inviteCount));
 		
 		$this->view->setTemplateAfter('topbar');	// 框架通用菜单
 
@@ -1702,7 +1702,7 @@ class CircleController extends ControllerBase
 		
 		$phql = "SELECT Circle.name  FROM CircleMember LEFT JOIN Circle ON Circle.circleid=CircleMember.circle_id LEFT JOIN Users ON Users.userid=Circle.userid WHERE CircleMember.member_id='$this->userid' AND CircleMember.status=0";
 		$inviteCount = $this->modelsManager->executeQuery ( $phql );
-		$this->view->setVar('inviteCount',$inviteCount);
+		$this->view->setVar('inviteCount',count($inviteCount));
 		$Id = $Id ? $Id : 0;
 		if ($Id) {
 			$this->session->set('cDiskPath', DATA_BASIC_PATH . '/c_' . $Id . '/private/');

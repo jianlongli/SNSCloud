@@ -71,7 +71,7 @@
 					<input type="hidden" value="<?php echo $authInfo['roleids'];?>" id='roleid'/> 
 					<ul class="dropdown-menu menu-topbar_user fadein" role="menu" aria-labelledby="topbar_user" style="left:65px;">
 						<li><a href="/system#personal">个人信息</a></li>
-						<li><a href="/system#invite">圈子邀请(3)</a></li>
+						<li><a href="/system#invite">圈子邀请(<?php echo $inviteCount;?>)</a></li>
 						<?php if($authInfo['roleids'] == 1){ ?>
 						<li><a href="/system#member">用户管理</a></li>
 						<li><a href="/system#company">单位管理</a></li>
