@@ -82,8 +82,12 @@ class CirclemanageController extends ControllerBase
 					}
 				}
 				
+				
+				$circle_category = CCategory::findfirst ( 'circleId=' . $circleId );
+				
 				$circleInfo = array();
 				$circleInfo['circleId'] = $circleId;
+				$circleInfo ['categoryId'] = $circle_category->categoryId;
 				$circleInfo['circlename'] = $circleDetail->name;
 				$circleInfo['desc'] =  $circleDetail->desc;
 				$circleInfo['logo'] = $circleDetail->logo ? '/circlestatic/img/circle/' . $circleDetail->circleid . '/' . $circleDetail->logo : '/circlestatic/images/7c.jpg';
@@ -98,6 +102,7 @@ class CirclemanageController extends ControllerBase
 				$circleInfo['quanzhuId'] = $circleDetail->userid;
 			}
 			$this->view->setVar("circleInfo", $circleInfo);
+			$this->view->setVar("categoryList", Category::find() );
 		}
 	}
 	
@@ -172,6 +177,17 @@ class CirclemanageController extends ControllerBase
 			$updatetomember = array_diff($existAdminArr,$adminArr);
 			foreach($updatetomember as $kk => $vv ){
 				$this->update_circle_member($circleId , $vv ,0);
+			}
+			
+			$categoryId = $request->getPost ('cagegory');
+			if ($categoryId) {
+				$circle_category = CCategory::findfirst( 'circleId=' . $circleId );
+				if ($circle_category)
+					$circle_category->delete();
+				$add_circle_category = new CCategory();
+				$add_circle_category->circleId = $circleId;
+				$add_circle_category->categoryId = $categoryId;
+				$add_circle_category->save();
 			}
 			$this->common->show_json('success');
 		}else{

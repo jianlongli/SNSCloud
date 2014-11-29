@@ -1604,8 +1604,8 @@ class CircleController extends ControllerBase
     	$id = $_GET ['id'];
 		//$where = 'userid != ' . $userInfo ['userid'];
     	$where = '';
-    	//if ($id)
-    		//$where .= 'userid not in (' . $id . ')';
+//    	if ($id)
+//    		$where .= 'userid not in (' . $id . ')';
     	$this->view->setVar('user', Users::find($where));
     }
     
