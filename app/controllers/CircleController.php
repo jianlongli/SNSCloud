@@ -49,13 +49,18 @@ class CircleController extends ControllerBase
 		
 		//zz查询最新的一条作业
 		$user = $this->session->get('auth');
-		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,Work.created created ,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." order by WorkCommit.commitid limit 1";
+		 $sqls = "SELECT Work.title name,Work.workid workid,Work.starttime starttime,Work.endtime endtime,Work.created created ,WorkCommit.ccloudid iscommit,WorkCommit.commitid commitid FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." and ccloudid IS NULL and endtime>unix_timestamp(now()) order by WorkCommit.commitid limit 1";
 		$mywork_data =  $this->modelsManager->executeQuery ( $sqls );
 		//print_r($mywork_data);die;
 		foreach($mywork_data as $v){
 			$worklist=$v;
 		}
 		 $this->view->setVar('worklist',$worklist);
+		 //我未交作业总数
+		 $sqls1 = "SELECT count(Work.workid) as num  FROM WorkCommit LEFT JOIN Work ON WorkCommit.workid=Work.workid WHERE WorkCommit.userid=".$user['userid']." and WorkCommit.ccloudid IS NULL and Work.endtime>unix_timestamp(now())";
+		$mywork_all_ncount =  $this->modelsManager->executeQuery ( $sqls1 );
+		$mywork_all_num =$mywork_all_ncount[0][num];
+		 $this->view->setVar('mywork_all_num',$mywork_all_num);
 		
 	}
 
