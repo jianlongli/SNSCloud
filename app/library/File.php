@@ -1061,7 +1061,8 @@ class File extends Phalcon\Mvc\User\Component
 		$user = $this->session->get('auth');
 		// $file_name = $this->iconv_system($file['name']);
 		$fileext=$this->fileext($file['name']);//取得文件扩展
-		$file_name = $workid.$user['userid'].time().".".$fileext;
+		//$file_name = $workid.$user['userid'].time().".".$fileext;
+		$file_name = $file['name'];
 		$info = $this->_circleupload($file['name'], $file['tmp_name'], $file['size'], $path.$file_name, $path);
 		return $info;
 		//$this->common->show_json($info['data'],$info['code'],$info['path']);
